@@ -19,6 +19,8 @@ import com.pathplanner.lib.util.swerve.SwerveSetpoint;
 import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -189,44 +191,6 @@ public class SwerveSubsystem extends SubsystemBase
                                );
             } else
             {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
               swerveDrive.setChassisSpeeds(speedsRobotRelative);
             }
           },
@@ -323,6 +287,7 @@ public class SwerveSubsystem extends SubsystemBase
         edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
                                      );
   }
+
 
   /**
    * Drive with {@link SwerveSetpointGenerator} from 254, implemented by PathPlanner.
@@ -434,6 +399,35 @@ public class SwerveSubsystem extends SubsystemBase
                      distanceInMeters);
   }
 
+  public double XPose(double X)
+   {
+    PIDController TranslationPIDX = new PIDController(1,0.00,0);
+    
+    double XPose = swerveDrive.getPose().getX();
+    double XPoseValue = TranslationPIDX.calculate(XPose, X);
+    return XPoseValue;
+  }
+
+  public double YPose(double Y)
+   {
+  PIDController TranslationPIDY = new PIDController(0.5,0.00,0) ;
+  double YPose = swerveDrive.getPose().getY();
+
+    double YPoseValue = TranslationPIDY.calculate(YPose, Y);
+
+    return YPoseValue;
+  }
+
+  public Double RotPose(double Rot)
+   {
+  PIDController TurnPID = new PIDController(0.15,0,0) ;
+    double RotationPose = swerveDrive.getPose().getRotation().getRadians();
+
+    double RotPoseValue = TurnPID.calculate(RotationPose, Math.toRadians(Rot));
+
+    return RotPoseValue;
+  }
+
   /**
    * Replaces the swerve module feedforward with a new SimpleMotorFeedforward object.
    *
@@ -479,7 +473,7 @@ public class SwerveSubsystem extends SubsystemBase
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
                               DoubleSupplier headingY)
   {
-    // swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
+    swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
     return run(() -> {
 
       Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX.getAsDouble(),
