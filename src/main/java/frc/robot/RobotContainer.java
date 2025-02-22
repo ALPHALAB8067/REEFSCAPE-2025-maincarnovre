@@ -184,7 +184,7 @@ public class RobotContainer
       driverXbox.x().whileTrue(MoveToL);
 
 
-      driverXbox.a().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(2, 5, new Rotation2d()))));
+      driverXbox.a().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3.881, 5.127, new Rotation2d(Math.toRadians(-60))))));
 
      // driverXbox.b().whileTrue(drivebase.driveToPose(
      //   new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(0)))

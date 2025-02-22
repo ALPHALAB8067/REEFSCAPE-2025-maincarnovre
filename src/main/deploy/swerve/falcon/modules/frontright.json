@@ -3,26 +3,26 @@
     "front": 14,
     "left": -14
   },
-  "absoluteEncoderOffset": 302.4,
-  
+  "absoluteEncoderOffset": 351.72,
   "drive": {
     "type": "krakenx60",
-    "id": 3,
+    "id": 7,
     "canbus": "DrivebaseCan"
   },
   "angle": {
     "type": "krakenx60",
-    "id": 4,
+    "id": 8,
     "canbus": "DrivebaseCan"
   },
   "encoder": {
     "type": "cancoder",
-    "id": 12,
+    "id": 14,
     "canbus": "DrivebaseCan"
   },
   "inverted": {
     "drive": false,
     "angle": false
   },
+  
   "absoluteEncoderInverted": false
 }
