@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class GotoposePIDX extends Command {
+public class GotoposePID extends Command {
   public final SwerveSubsystem mSwerveSubsystem; 
   double X;
   double Y;
@@ -25,7 +25,7 @@ public class GotoposePIDX extends Command {
 
 
   /** Creates a new GotoposePID. */
-  public GotoposePIDX(SwerveSubsystem mSwerveSubsystem, double mX, double mY, double mRot) {
+  public GotoposePID(SwerveSubsystem mSwerveSubsystem, double mX, double mY, double mRot) {
     this.mSwerveSubsystem = mSwerveSubsystem;
     X = mX;
     Y = mY;

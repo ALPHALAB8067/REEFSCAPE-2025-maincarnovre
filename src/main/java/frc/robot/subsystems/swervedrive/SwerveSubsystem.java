@@ -94,6 +94,8 @@ public class SwerveSubsystem extends SubsystemBase
                                                                  new Pose2d(new Translation2d(Meter.of(1),
                                                                                              Meter.of(4)),
                                                                             Rotation2d.fromDegrees(0)));
+
+      swerveDrive.setAutoCenteringModules(false);                                                                      
                                                                             
                                                                             
                                                                             
@@ -420,7 +422,7 @@ public class SwerveSubsystem extends SubsystemBase
 
   public Double RotPose(double Rot)
    {
-  PIDController TurnPID = new PIDController(0.15,0,0) ;
+  PIDController TurnPID = new PIDController(0.5,0,0) ;
     double RotationPose = swerveDrive.getPose().getRotation().getRadians();
 
     double RotPoseValue = TurnPID.calculate(RotationPose, Math.toRadians(Rot));

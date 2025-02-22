@@ -19,9 +19,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.swervedrive.GotoposePIDX;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+import java.lang.reflect.Field;
+
 import swervelib.SwerveInputStream;
 
 
@@ -35,12 +36,13 @@ public class RobotContainer
     private final SendableChooser<Command> autoChooser;
 
 
+
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/falcon"));
-    private final GotoposePIDX mGotoposePID = new GotoposePIDX(drivebase,2, 3, 0);
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -60,11 +62,19 @@ public class RobotContainer
                                                                                              driverXbox::getRightY)
                                                            .headingWhile(true);
 
-  SwerveInputStream GotopositionPID = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
-                         () -> drivebase.XPose(2),
-                         () -> drivebase.YPose(5))                                                            
-                         .withControllerRotationAxis(() -> drivebase.RotPose(50))
-                         ;
+  SwerveInputStream PoteauL = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+                         () -> drivebase.XPose(FieldConstants.PoteauL.getX()),
+                         () -> drivebase.YPose(FieldConstants.PoteauL.getY()))                                                            
+                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauL.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauK = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+                         () -> drivebase.XPose(FieldConstants.PoteauK.getX()),
+                         () -> drivebase.YPose(FieldConstants.PoteauK.getY()))                                                            
+                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauK.getRotation().getDegrees()));
+  SwerveInputStream PoteauJ = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+                         () -> drivebase.XPose(FieldConstants.PoteauJ.getX()),
+                         () -> drivebase.YPose(FieldConstants.PoteauJ.getY()))                                                            
+                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauJ.getRotation().getDegrees()));
 
   /**
    * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
@@ -133,8 +143,11 @@ public class RobotContainer
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
 
-    Command move = drivebase.driveFieldOriented(GotopositionPID);
-      
+    // Poteau Positions 
+    Command MoveToL = drivebase.driveFieldOriented(PoteauL);
+    Command MoveToK = drivebase.driveFieldOriented(PoteauK);
+    Command MoveToJ = drivebase.driveFieldOriented(PoteauJ);
+
 
     if (RobotBase.isSimulation())
     {
@@ -161,12 +174,16 @@ public class RobotContainer
       driverXbox.leftBumper().onTrue(Commands.none());
       driverXbox.rightBumper().onTrue(Commands.none());
       driverXbox.x().onTrue(drivebase.sysIdDriveMotorCommand());
+
       driverXbox.y().onTrue(drivebase.sysIdAngleMotorCommand());
     } else
     {
       //driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      driverXbox.b().whileTrue(move);
+      driverXbox.b().whileTrue(MoveToJ);
+      driverXbox.y().whileTrue(MoveToK);
+      driverXbox.x().whileTrue(MoveToL);
+
+
       driverXbox.a().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(2, 5, new Rotation2d()))));
 
      // driverXbox.b().whileTrue(drivebase.driveToPose(
