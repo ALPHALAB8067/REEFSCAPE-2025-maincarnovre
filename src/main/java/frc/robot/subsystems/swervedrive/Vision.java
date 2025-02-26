@@ -22,6 +22,7 @@ import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import java.awt.Desktop;
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class Vision
    * April Tag Field Layout of the year.
    */
   public static final AprilTagFieldLayout fieldLayout                     = AprilTagFieldLayout.loadField(
-      AprilTagFields.k2025Reefscape);
+      AprilTagFields.k2025ReefscapeWelded);
   /**
    * Ambiguity defined as a value between (0,1). Used in {@link Vision#filterPose}.
    */
@@ -89,7 +90,7 @@ public class Vision
 
     if (Robot.isSimulation())
     {
-      visionSim = new VisionSystemSim("Photo8gb");
+      visionSim = new VisionSystemSim("photonvision");
       visionSim.addAprilTags(fieldLayout);
 
       for (Cameras c : Cameras.values())
@@ -143,6 +144,7 @@ public class Vision
     for (Cameras camera : Cameras.values())
     {
       Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
+      SmartDashboard.putBoolean("PoseFound", poseEst.isPresent());
       if (poseEst.isPresent())
       {
         var pose = poseEst.get();
@@ -347,8 +349,8 @@ public class Vision
     /**
      * Right Camera
      */
-    RIGHT_CAM("right",
-              new Rotation3d(0, Math.toRadians(17.91), Math.toRadians(31.6)),
+    RIGHT_CAM("RIGHT_CAM",
+              new Rotation3d(0, Math.toRadians(-17.91), Math.toRadians(-31.6)),
               new Translation3d(Units.inchesToMeters(28.22),
                                 Units.inchesToMeters(-19.7),
                                 Units.inchesToMeters(21.0)),

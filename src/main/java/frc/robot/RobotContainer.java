@@ -63,9 +63,9 @@ public class RobotContainer
                                                            .headingWhile(true);
 
   SwerveInputStream PoteauL = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
-                         () -> drivebase.XPose(FieldConstants.PoteauL.getX()),
-                         () -> drivebase.YPose(FieldConstants.PoteauL.getY()))                                                            
-                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauL.getRotation().getDegrees()));
+                         () -> drivebase.XPose(FieldConstants.PoteauLR.getX()),
+                         () -> drivebase.YPose(FieldConstants.PoteauLR.getY()))                                                            
+                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauLR.getRotation().getDegrees()));
 
   SwerveInputStream PoteauK = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
                          () -> drivebase.XPose(FieldConstants.PoteauK.getX()),
