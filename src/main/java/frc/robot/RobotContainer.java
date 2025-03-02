@@ -19,6 +19,15 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.intake.intakeDownCMD;
+import frc.robot.commands.intake.intakeUpCMD;
+import frc.robot.commands.intake.intakeWheelReverseCMD;
+import frc.robot.commands.wrist.WristExitCMD;
+import frc.robot.commands.wrist.WristGoToAngledCMD;
+import frc.robot.commands.wrist.WristGoToStraightCMD;
+import frc.robot.commands.wrist.WristIntakeCMD;
+import frc.robot.subsystems.IntakeSS;
+import frc.robot.subsystems.WristSS;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -40,9 +49,29 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final         CommandXboxController secondXbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/falcon"));
+
+
+  //subsystem + commands
+   
+  private final IntakeSS intakeSS = new IntakeSS();
+  private final intakeDownCMD intakeDownCMD = new intakeDownCMD(intakeSS);
+  private final intakeUpCMD intakeUpCMD = new intakeUpCMD(intakeSS);
+  private final intakeDownCMD intakeWheelCMD = new intakeDownCMD(intakeSS);
+  private final intakeWheelReverseCMD intakeWheelReverseCMD = new intakeWheelReverseCMD(intakeSS);
+
+  private final WristSS wristSS = new WristSS();
+  private final WristExitCMD wristExitCMD = new WristExitCMD(wristSS);
+  private final WristGoToAngledCMD wristGoToAngledCMD = new WristGoToAngledCMD(wristSS);
+  private final WristGoToStraightCMD wristGoToStraightCMD = new WristGoToStraightCMD(wristSS);
+  private final WristIntakeCMD wristIntakeCMD = new WristIntakeCMD(wristSS);
+
+
+
+
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -199,6 +228,18 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
     }
+
+      //second xbox controller 
+
+      secondXbox.rightBumper().onTrue(wristGoToAngledCMD);
+      secondXbox.leftBumper().onTrue(wristGoToStraightCMD);
+      secondXbox.leftTrigger(0.2).onTrue(wristIntakeCMD);
+      secondXbox.rightTrigger(0.2).onTrue(wristExitCMD);
+
+      secondXbox.a().onTrue(intakeDownCMD);
+      secondXbox.b().onTrue(intakeUpCMD);
+      secondXbox.x().onTrue(intakeWheelCMD);
+      secondXbox.y().onTrue(intakeWheelReverseCMD);
 
   }
 
