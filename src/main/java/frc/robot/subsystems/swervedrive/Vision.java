@@ -76,6 +76,8 @@ public class Vision
    */
   private             Field2d             field2d;
 
+  public static Pose3d driveTrainPose3d;
+
 
   /**
    * Constructor for the Vision class.
@@ -144,10 +146,11 @@ public class Vision
     for (Cameras camera : Cameras.values())
     {
       Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
-      SmartDashboard.putBoolean("PoseFound", poseEst.isPresent());
       if (poseEst.isPresent())
       {
         var pose = poseEst.get();
+        SmartDashboard.putBoolean("PoseFound", poseEst.isPresent());
+
         swerveDrive.addVisionMeasurement(pose.estimatedPose.toPose2d(),
                                          pose.timestampSeconds,
                                          camera.curStdDevs);
@@ -348,16 +351,20 @@ public class Vision
              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
     /**
      * Right Camera
-     */
-    RIGHT_CAM("RIGHT_CAM",
+     *//*    RIGHT_CAM("RIGHT_CAM",
               new Rotation3d(0, Math.toRadians(-17.91), Math.toRadians(-31.6)),
               new Translation3d(Units.inchesToMeters(28.22),
                                 Units.inchesToMeters(-19.7),
                                 Units.inchesToMeters(21.0)),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
     /**
-     * Center Camera
-     */
+     * Center Camera*/
+      CENTER_CAM("CENTERCAM",
+              new Rotation3d(0, 0,0),
+              new Translation3d(0,
+                                0,
+                               0),
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
                
     /**
      * Latency alert to use when high latency is detected.
@@ -383,6 +390,7 @@ public class Vision
      * Transform of the camera rotation and translation relative to the center of the robot
      */
     private final Transform3d                  robotToCamTransform;
+
     /**
      * Current standard deviations used.
      */
@@ -447,6 +455,7 @@ public class Vision
 
         cameraSim = new PhotonCameraSim(camera, cameraProp);
         cameraSim.enableDrawWireframe(true);
+        
       }
     }
 

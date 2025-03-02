@@ -7,31 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Borys1 Path"
+            "pathName": "Start to J"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Borys 2 Path"
+            "pathName": "K to Station"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Borys 3 Path"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Borys 2 Path"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Borys 3 Path"
+            "pathName": "Station to L"
           }
         }
       ]
