@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+/*
 import frc.robot.commands.intake.intakeDownCMD;
 import frc.robot.commands.intake.intakeUpCMD;
 import frc.robot.commands.intake.intakeWheelReverseCMD;
@@ -28,6 +29,7 @@ import frc.robot.commands.wrist.WristGoToStraightCMD;
 import frc.robot.commands.wrist.WristIntakeCMD;
 import frc.robot.subsystems.IntakeSS;
 import frc.robot.subsystems.WristSS;
+ */
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -56,7 +58,7 @@ public class RobotContainer
 
 
   //subsystem + commands
-   
+   /*
   private final IntakeSS intakeSS = new IntakeSS();
   private final intakeDownCMD intakeDownCMD = new intakeDownCMD(intakeSS);
   private final intakeUpCMD intakeUpCMD = new intakeUpCMD(intakeSS);
@@ -68,7 +70,7 @@ public class RobotContainer
   private final WristGoToAngledCMD wristGoToAngledCMD = new WristGoToAngledCMD(wristSS);
   private final WristGoToStraightCMD wristGoToStraightCMD = new WristGoToStraightCMD(wristSS);
   private final WristIntakeCMD wristIntakeCMD = new WristIntakeCMD(wristSS);
-
+ */
 
 
 
@@ -230,7 +232,7 @@ public class RobotContainer
     }
 
       //second xbox controller 
-
+/*
       secondXbox.rightBumper().onTrue(wristGoToAngledCMD);
       secondXbox.leftBumper().onTrue(wristGoToStraightCMD);
       secondXbox.leftTrigger(0.2).onTrue(wristIntakeCMD);
@@ -240,7 +242,7 @@ public class RobotContainer
       secondXbox.b().onTrue(intakeUpCMD);
       secondXbox.x().onTrue(intakeWheelCMD);
       secondXbox.y().onTrue(intakeWheelReverseCMD);
-
+ */
   }
 
   /**

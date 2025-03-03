@@ -149,7 +149,6 @@ public class Vision
       if (poseEst.isPresent())
       {
         var pose = poseEst.get();
-        SmartDashboard.putBoolean("PoseFound", poseEst.isPresent());
 
         swerveDrive.addVisionMeasurement(pose.estimatedPose.toPose2d(),
                                          pose.timestampSeconds,
@@ -184,6 +183,8 @@ public class Vision
             debugField.getObject("VisionEstimation").setPoses();
           });
     }
+    SmartDashboard.putBoolean("PoseFound", poseEst.isPresent());
+
     return poseEst;
   }
 
@@ -360,8 +361,8 @@ public class Vision
     /**
      * Center Camera*/
       CENTER_CAM("CENTERCAM",
-              new Rotation3d(0, 0,0),
-              new Translation3d(0,
+              new Rotation3d(0, 0,Math.toDegrees(180)),
+              new Translation3d(14,
                                 0,
                                0),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
