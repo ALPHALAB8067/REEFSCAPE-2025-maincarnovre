@@ -456,6 +456,8 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn13.whileTrue(MoveToIR);
         btn14.whileTrue(MoveToJR);
         btn15.whileTrue(MoveToKR);
+        btn16.whileTrue(MoveToLR);
+
       } else if(SwerveSubsystem.isRedAlliance() == false){ 
         btn5.whileTrue(MoveToA);
         btn6.whileTrue(MoveToB);
@@ -468,6 +470,8 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn13.whileTrue(MoveToI);
         btn14.whileTrue(MoveToJ);
         btn15.whileTrue(MoveToK);
+        btn16.whileTrue(MoveToL);
+
       } 
       //L1-2-3-4
       //ReefPositions

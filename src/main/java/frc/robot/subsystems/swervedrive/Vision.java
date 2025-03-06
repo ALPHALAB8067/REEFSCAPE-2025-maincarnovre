@@ -361,10 +361,10 @@ public class Vision
     /**
      * Center Camera*/
       CENTER_CAM("CENTERCAM",
-              new Rotation3d(0, 0,Math.toDegrees(180)),
-              new Translation3d(14,
+              new Rotation3d(0, 0,Math.toDegrees(0)),
+              new Translation3d(13.875,
                                 0,
-                               0),
+                               5.71),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
                
     /**
