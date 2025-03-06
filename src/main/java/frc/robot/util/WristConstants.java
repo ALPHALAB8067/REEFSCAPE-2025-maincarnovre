@@ -30,13 +30,11 @@ public final class WristConstants {
   public static final int wheelSparkMaxPort = 0;
   public static final boolean wheelIsInverted = false;
   public static final IdleMode wheelIdleMode = IdleMode.kCoast;
-  public static final int straightPosition = 0;
-  public static final int angledPosition = 90;
+  public static final double straightPosition = 0.0;
+  public static final double angledPosition = 90.0;
   public static final int turnWheelPercent = 0;
   public static final int reverseWheelPercent = -turnWheelPercent;
 
-  
-
-
+  public static final int digitalinputport = 0;
 
 }

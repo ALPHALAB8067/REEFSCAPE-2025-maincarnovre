@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
@@ -136,6 +137,7 @@ public class SwerveSubsystem extends SubsystemBase
                                   Constants.MAX_SPEED,
                                   new Pose2d(new Translation2d(Meter.of(4), Meter.of(2)),
                                              Rotation2d.fromDegrees(0)));
+                                    RobotModeTriggers.autonomous().onTrue(Commands.runOnce(this::zeroGyroWithAlliance));
   }
 
   /**
@@ -174,7 +176,7 @@ public class SwerveSubsystem extends SubsystemBase
     {
       config = RobotConfig.fromGUISettings();
 
-      final boolean enableFeedforward = false;
+      final boolean enableFeedforward = true;
       // Configure AutoBuilder last
       AutoBuilder.configure(
           this::getPose,
@@ -610,7 +612,7 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @return true if the red alliance, false if blue. Defaults to false if none is available.
    */
-  private boolean isRedAlliance()
+  public static boolean isRedAlliance()
   {
     var alliance = DriverStation.getAlliance();
     return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;

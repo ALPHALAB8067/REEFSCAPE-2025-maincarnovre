@@ -1,15 +1,15 @@
-package frc.robot.commands.wrist;
+package frc.robot.commands.claw;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.WristSS;
+import frc.robot.subsystems.ClawSS;
 
-public class WristExitCMD extends Command {
+public class ClawExitCMD extends Command {
 
-  private final WristSS wristSS;
+  private final ClawSS clawss;
 
-  public WristExitCMD(WristSS pWristSS) {
+  public ClawExitCMD(ClawSS clawSS) {
       
-    wristSS = pWristSS;
+    clawss = clawSS;
   
   }
 
@@ -18,7 +18,7 @@ public class WristExitCMD extends Command {
 
   @Override
   public void execute() {
-    wristSS.reverseWheel();
+    clawss.reverseWheel();
   }
 
   @Override

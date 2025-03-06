@@ -51,4 +51,13 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+
+  public static class ArmConstants{
+    public static final double ExtensionPouceParTour = 3.49 ;
+    public static final double RotationdegresParTour = 154.285;
+    public static final double RotationEncoderSafeZone = 17;
+    public static final double WristEncoderSafeZone = 0;
+  }
+
+
 }

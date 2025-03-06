@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Start to I"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "I to CoralStation"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CoralStation to K"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "K to CoralStation"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CoralStation to L"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

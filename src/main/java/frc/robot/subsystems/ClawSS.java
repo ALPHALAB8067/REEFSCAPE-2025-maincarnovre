@@ -8,10 +8,12 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.WristConstants;
 
-public class WristSS extends SubsystemBase {
+public class ClawSS extends SubsystemBase {
 
   private final SparkMax rotateSparkMax;
   private final SparkMax wheelSparkMax;
@@ -22,9 +24,11 @@ public class WristSS extends SubsystemBase {
   private final SparkAbsoluteEncoder thru;
 
   private final SparkClosedLoopController rotatePID;
+
+  private final DigitalInput digitalInput;
   
 
-  public WristSS() {
+  public ClawSS() {
 
     rotateSparkMax = new SparkMax(WristConstants.rotateSparkMaxPort, MotorType.kBrushless);
 
@@ -47,6 +51,8 @@ public class WristSS extends SubsystemBase {
     thru = rotateSparkMax.getAbsoluteEncoder();
 
     rotatePID = rotateSparkMax.getClosedLoopController();
+
+    digitalInput = new DigitalInput(WristConstants.digitalinputport);
 
   }
 
@@ -74,7 +80,15 @@ public class WristSS extends SubsystemBase {
     wheelSparkMax.set(WristConstants.reverseWheelPercent);
   }
 
+  public boolean hasSomething() {
+    return digitalInput.get();
+  }
+
   @Override
   public void periodic() {
+
+    SmartDashboard.putNumber("Position", getRotatePosition());
+    SmartDashboard.putBoolean("Has something?", hasSomething());
+
   }
 }

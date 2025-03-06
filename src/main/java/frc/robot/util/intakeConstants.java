@@ -13,4 +13,6 @@ public final class intakeConstants {
   public static final double wheelTurnPercent = 0.5;
   public static final double wheelReversePercent = -wheelTurnPercent;
 
+  public static final int pressureswitchport = 0;
+
 }

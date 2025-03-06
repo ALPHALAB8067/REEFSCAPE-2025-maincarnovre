@@ -17,9 +17,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commandgroups.IntakeInCMD;
+import frc.robot.commandgroups.IntakeOutCMD;
+import frc.robot.commandgroups.closeRobotCMD;
+import frc.robot.commands.goToL1;
+import frc.robot.commands.goToL2;
+import frc.robot.commands.goToL3;
+import frc.robot.commands.goToL4;
+import frc.robot.commands.goToRest;
+import frc.robot.commands.claw.ClawExitCMD;
+import frc.robot.commands.claw.ClawGoAngledCMD;
+import frc.robot.commands.claw.ClawGoStraight;
+import frc.robot.commands.claw.ClawIntakeCMD;
+import frc.robot.commands.intake.intakeDownCMD;
+import frc.robot.commands.intake.intakeUpCMD;
+import frc.robot.commands.intake.intakeWheelCMD;
+import frc.robot.commands.intake.intakeWheelReverseCMD;
+import frc.robot.subsystems.ARM_SS;
+import frc.robot.subsystems.ClawSS;
+import frc.robot.subsystems.IntakeSS;
 /*
 import frc.robot.commands.intake.intakeDownCMD;
 import frc.robot.commands.intake.intakeUpCMD;
@@ -45,54 +65,97 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer
 {
+
+    //subystem declaration
+    private final ClawSS mClawSS = new ClawSS();
+    private final IntakeSS mIntakeSS = new IntakeSS();
+    private final ARM_SS mArm_SS = new ARM_SS();
+    
+    //claw command declaration
+    private final ClawExitCMD mClawExitCMD = new ClawExitCMD(mClawSS);
+    private final ClawGoAngledCMD mClawGoAngledCMD = new ClawGoAngledCMD(mClawSS);
+    private final ClawGoStraight mClawGoStraight = new ClawGoStraight(mClawSS);
+    private final ClawIntakeCMD mClawIntakeCMD = new ClawIntakeCMD(mClawSS);
+
+    //intake command declaration
+    private final intakeDownCMD mIntakeDownCMD = new intakeDownCMD(mIntakeSS);
+    private final intakeUpCMD mIntakeUpCMD = new intakeUpCMD(mIntakeSS);
+    private final intakeWheelCMD mIntakeWheelCMD = new intakeWheelCMD(mIntakeSS);
+    private final intakeWheelReverseCMD mIntakeWheelReverseCMD = new intakeWheelReverseCMD(mIntakeSS);
+
+    //arm position declaration
+    private final goToL1 mGoToL1 = new goToL1(mArm_SS);
+    private final goToL2 mGoToL2 = new goToL2(mArm_SS);
+    private final goToL3 mGoToL3 = new goToL3(mArm_SS);
+    private final goToL4 mGoToL4 = new goToL4(mArm_SS);
+    private final goToRest mGoToRest = new goToRest(mArm_SS);
+
+    //command groups declaration
+    private final closeRobotCMD mCloseRobotCMD = new closeRobotCMD(mArm_SS, mClawSS);
+    private final IntakeInCMD mIntakeInCMD = new IntakeInCMD(mIntakeSS, mArm_SS);
+    private final IntakeOutCMD mIntakeOutCMD = new IntakeOutCMD(mIntakeSS, mArm_SS, mClawSS);
+
+
     private final SendableChooser<Command> autoChooser;
 
 
 
+// Xbox Controller
+    final CommandXboxController driverXbox = new CommandXboxController(0);
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
-  final         CommandXboxController secondXbox = new CommandXboxController(1);
-  final         GenericHID mButtonBoxPT1 = new GenericHID(2);
+// Console box 
+    final GenericHID mButtonBoxPT1 = new GenericHID(2);
+
   Trigger btn1 = new Trigger(()->mButtonBoxPT1.getRawButton(1));
   Trigger btn2 = new Trigger(()->mButtonBoxPT1.getRawButton(2));
+  Trigger btn3 = new Trigger(()->mButtonBoxPT1.getRawButton(3));
+  Trigger btn4 = new Trigger(()->mButtonBoxPT1.getRawButton(4));
+  Trigger btn5 = new Trigger(()->mButtonBoxPT1.getRawButton(5));
+  Trigger btn6 = new Trigger(()->mButtonBoxPT1.getRawButton(6));
+  Trigger btn7 = new Trigger(()->mButtonBoxPT1.getRawButton(7));
+  Trigger btn8 = new Trigger(()->mButtonBoxPT1.getRawButton(8));
+  Trigger btn9 = new Trigger(()->mButtonBoxPT1.getRawButton(9));
+  Trigger btn10 = new Trigger(()->mButtonBoxPT1.getRawButton(10));
+  Trigger btn11 = new Trigger(()->mButtonBoxPT1.getRawButton(11));
+  Trigger btn12 = new Trigger(()->mButtonBoxPT1.getRawButton(12));
+  Trigger btn13 = new Trigger(()->mButtonBoxPT1.getRawButton(13));
+  Trigger btn14 = new Trigger(()->mButtonBoxPT1.getRawButton(14));
+  Trigger btn15 = new Trigger(()->mButtonBoxPT1.getRawButton(15));
+  Trigger btn16 = new Trigger(()->mButtonBoxPT1.getRawButton(16));
+  Trigger btn17 = new Trigger(()->mButtonBoxPT1.getRawButton(17));
+  Trigger btn18 = new Trigger(()->mButtonBoxPT1.getRawButton(18));
+  Trigger btn19 = new Trigger(()->mButtonBoxPT1.getRawButton(19));
+  Trigger btn20 = new Trigger(()->mButtonBoxPT1.getRawButton(20));
+  Trigger btn21 = new Trigger(()->mButtonBoxPT1.getRawButton(21));
+  Trigger btn22 = new Trigger(()->mButtonBoxPT1.getRawButton(22));
+  Trigger btn23 = new Trigger(()->mButtonBoxPT1.getRawButton(23));
+  Trigger btn24 = new Trigger(()->mButtonBoxPT1.getRawButton(24));
 
-  final         GenericHID mButtonBoxPT2 = new GenericHID(3);
-
+  
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/falcon"));
 
-
-  //subsystem + commands
-   /*
-  private final IntakeSS intakeSS = new IntakeSS();
-  private final intakeDownCMD intakeDownCMD = new intakeDownCMD(intakeSS);
-  private final intakeUpCMD intakeUpCMD = new intakeUpCMD(intakeSS);
-  private final intakeDownCMD intakeWheelCMD = new intakeDownCMD(intakeSS);
-  private final intakeWheelReverseCMD intakeWheelReverseCMD = new intakeWheelReverseCMD(intakeSS);
-
-  private final WristSS wristSS = new WristSS();
-  private final WristExitCMD wristExitCMD = new WristExitCMD(wristSS);
-  private final WristGoToAngledCMD wristGoToAngledCMD = new WristGoToAngledCMD(wristSS);
-  private final WristGoToStraightCMD wristGoToStraightCMD = new WristGoToStraightCMD(wristSS);
-  private final WristIntakeCMD wristIntakeCMD = new WristIntakeCMD(wristSS);
- */
-
-
-
-
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * -0.5,
-                                                                () -> driverXbox.getLeftX() * -0.5)
+                                                                () -> driverXbox.getLeftY() * -0.8,
+                                                                () -> driverXbox.getLeftX() * 0.8)
                                                             .withControllerRotationAxis(driverXbox::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
+
+  SwerveInputStream driveSlowly = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                            () -> driverXbox.getLeftY() * -0.4,
+                                                            () -> driverXbox.getLeftX() * 0.4)
+                                                        .withControllerRotationAxis(() -> driverXbox.getRightX() * 0.5)
+                                                        .deadband(OperatorConstants.DEADBAND)
+                                                        .scaleTranslation(0.8)
+                                                        .allianceRelativeControl(true);
+
 
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
@@ -101,19 +164,130 @@ public class RobotContainer
                                                                                              driverXbox::getRightY)
                                                            .headingWhile(true);
 
-  SwerveInputStream PoteauL = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
-                         () -> drivebase.XPose(FieldConstants.PoteauLR.getX()),
-                         () -> drivebase.YPose(FieldConstants.PoteauLR.getY()))                                                            
-                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauLR.getRotation().getDegrees()));
+// Red Alliance
+
+SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauAR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauAR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauAR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauBR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauBR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauBR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauBR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauCR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauCR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauCR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauCR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauDR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauDR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauDR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauDR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauER = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauER.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauER.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauER.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauFR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauFR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauFR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauFR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauGR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauGR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauGR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauGR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauHR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauHR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauHR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauHR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauIR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauIR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauIR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauIR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauJR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauJR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauJR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauJR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauKR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauKR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauKR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauKR.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauLR = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.RedAlliancePoses.PoteauLR.getX()),
+  () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauLR.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauLR.getRotation().getDegrees()));
+
+  // Blue Alliance 
+
+  SwerveInputStream PoteauA = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauA.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauA.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauA.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauB = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauB.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauB.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauB.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauC = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauC.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauC.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauC.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauD = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauD.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauD.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauD.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauE = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauE.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauE.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauE.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauF = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauF.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauF.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauF.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauG = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauG.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauG.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauG.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauH = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauH.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauH.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauH.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauI = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauI.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauI.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauI.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauJ = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauJ.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauJ.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauJ.getRotation().getDegrees()));
 
   SwerveInputStream PoteauK = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
-                         () -> drivebase.XPose(FieldConstants.PoteauK.getX()),
-                         () -> drivebase.YPose(FieldConstants.PoteauK.getY()))                                                            
-                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauK.getRotation().getDegrees()));
-  SwerveInputStream PoteauJ = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
-                         () -> drivebase.XPose(FieldConstants.PoteauJ.getX()),
-                         () -> drivebase.YPose(FieldConstants.PoteauJ.getY()))                                                            
-                         .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.PoteauJ.getRotation().getDegrees()));
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauK.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauK.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauK.getRotation().getDegrees()));
+
+  SwerveInputStream PoteauL = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauL.getX()),
+  () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauL.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauL.getRotation().getDegrees()));
+  
 
   /**
    * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
@@ -153,13 +327,39 @@ public class RobotContainer
   public RobotContainer()
   {
 
-    autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("WhereWeGoing?", autoChooser);
+   
      
     // Configure the trigger bindings
-    configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+
+    //NamedCommands
+
+    NamedCommands.registerCommand("ClawExitCMD", mClawExitCMD);
+    NamedCommands.registerCommand("ClawGoAngled", mClawGoAngledCMD);
+    NamedCommands.registerCommand("ClawGoStraight", mClawGoStraight);
+    NamedCommands.registerCommand("ClawIntakeCMD", mClawIntakeCMD);
+
+    NamedCommands.registerCommand("IntakeDownCMD", mIntakeDownCMD);
+    NamedCommands.registerCommand("IntakeUpCMD", mIntakeUpCMD);
+    NamedCommands.registerCommand("IntakeWheelCMD", mIntakeWheelCMD);
+    NamedCommands.registerCommand("IntakeWheelReverseCMD", mIntakeWheelReverseCMD);
+
+    NamedCommands.registerCommand("GoToL1CMD", mGoToL1);
+    NamedCommands.registerCommand("GoToL2CMD", mGoToL2);
+    NamedCommands.registerCommand("GoToL3CMD", mGoToL3);
+    NamedCommands.registerCommand("GoToL4CMD", mGoToL4);
+    NamedCommands.registerCommand("GoToRest", mGoToRest);
+
+    NamedCommands.registerCommand("CloseRobot", mCloseRobotCMD);
+    NamedCommands.registerCommand("IntakeInCMD", mIntakeInCMD);
+    NamedCommands.registerCommand("IntakeOutCMD", mIntakeOutCMD);
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("WhereWeGoing?", autoChooser);
+
+    configureBindings();
+
+
   }
 
   /**
@@ -182,15 +382,42 @@ public class RobotContainer
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
 
-    // Poteau Positions 
-    Command MoveToL = drivebase.driveFieldOriented(PoteauL);
-    Command MoveToK = drivebase.driveFieldOriented(PoteauK);
+    // Poteau Positions RED
+    Command MoveToAR = drivebase.driveFieldOriented(PoteauAR);
+    Command MoveToBR = drivebase.driveFieldOriented(PoteauBR);
+    Command MoveToCR = drivebase.driveFieldOriented(PoteauCR);
+    Command MoveToDR = drivebase.driveFieldOriented(PoteauDR);
+    Command MoveToER = drivebase.driveFieldOriented(PoteauER);
+    Command MoveToFR = drivebase.driveFieldOriented(PoteauFR);
+    Command MoveToGR = drivebase.driveFieldOriented(PoteauGR);
+    Command MoveToHR = drivebase.driveFieldOriented(PoteauHR);
+    Command MoveToIR = drivebase.driveFieldOriented(PoteauIR);
+    Command MoveToJR = drivebase.driveFieldOriented(PoteauJR);
+    Command MoveToKR = drivebase.driveFieldOriented(PoteauKR);
+    Command MoveToLR = drivebase.driveFieldOriented(PoteauLR);
+
+    // Poteau Positions Bleu
+
+    Command MoveToA = drivebase.driveFieldOriented(PoteauA);
+    Command MoveToB = drivebase.driveFieldOriented(PoteauB);
+    Command MoveToC = drivebase.driveFieldOriented(PoteauC);
+    Command MoveToD = drivebase.driveFieldOriented(PoteauD);
+    Command MoveToE = drivebase.driveFieldOriented(PoteauE);
+    Command MoveToF = drivebase.driveFieldOriented(PoteauF);
+    Command MoveToG = drivebase.driveFieldOriented(PoteauG);
+    Command MoveToH = drivebase.driveFieldOriented(PoteauH);
+    Command MoveToI = drivebase.driveFieldOriented(PoteauI);
     Command MoveToJ = drivebase.driveFieldOriented(PoteauJ);
+    Command MoveToK = drivebase.driveFieldOriented(PoteauK);
+    Command MoveToL = drivebase.driveFieldOriented(PoteauL);
+    
+    //
+    Command DriveSlow = drivebase.driveFieldOriented(driveSlowly);
 
 
     if (RobotBase.isSimulation())
     {
-      drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity);
+      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     } else
     {
       drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity);
@@ -204,10 +431,8 @@ public class RobotContainer
     }
     if (DriverStation.isTest())
     {
+      /*
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
-
-      //driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      //driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
       driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.back().whileTrue(drivebase.centerModulesCommand());
       driverXbox.leftBumper().onTrue(Commands.none());
@@ -215,42 +440,44 @@ public class RobotContainer
       driverXbox.x().onTrue(drivebase.sysIdDriveMotorCommand());
 
       driverXbox.y().onTrue(drivebase.sysIdAngleMotorCommand());
+       */
     } else
     {
-      //driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.b().whileTrue(MoveToJ);
-      driverXbox.y().whileTrue(MoveToK);
-      driverXbox.x().whileTrue(MoveToL);
+      //Button BOX
+      if(SwerveSubsystem.isRedAlliance() == true) { 
+        btn5.whileTrue(MoveToAR);
+        btn6.whileTrue(MoveToBR);
+        btn7.whileTrue(MoveToCR);
+        btn8.whileTrue(MoveToDR);
+        btn9.whileTrue(MoveToER);
+        btn10.whileTrue(MoveToFR);
+        btn11.whileTrue(MoveToGR);
+        btn12.whileTrue(MoveToHR);
+        btn13.whileTrue(MoveToIR);
+        btn14.whileTrue(MoveToJR);
+        btn15.whileTrue(MoveToKR);
+      } else if(SwerveSubsystem.isRedAlliance() == false){ 
+        btn5.whileTrue(MoveToA);
+        btn6.whileTrue(MoveToB);
+        btn7.whileTrue(MoveToC);
+        btn8.whileTrue(MoveToD);
+        btn9.whileTrue(MoveToE);
+        btn10.whileTrue(MoveToF);
+        btn11.whileTrue(MoveToG);
+        btn12.whileTrue(MoveToH);
+        btn13.whileTrue(MoveToI);
+        btn14.whileTrue(MoveToJ);
+        btn15.whileTrue(MoveToK);
+      } 
+      //L1-2-3-4
+      //ReefPositions
 
-
-      driverXbox.a().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3.881, 5.127, new Rotation2d(Math.toRadians(-60))))));
-
-     // driverXbox.b().whileTrue(drivebase.driveToPose(
-     //   new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(0)))
-       //                 );
-        /*
-          drivebase.driveToPose(
-              new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(0)))
-                              );
-                              */
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
     }
 
-      //second xbox controller 
-/*
-      secondXbox.rightBumper().onTrue(wristGoToAngledCMD);
-      secondXbox.leftBumper().onTrue(wristGoToStraightCMD);
-      secondXbox.leftTrigger(0.2).onTrue(wristIntakeCMD);
-      secondXbox.rightTrigger(0.2).onTrue(wristExitCMD);
-
-      secondXbox.a().onTrue(intakeDownCMD);
-      secondXbox.b().onTrue(intakeUpCMD);
-      secondXbox.x().onTrue(intakeWheelCMD);
-      secondXbox.y().onTrue(intakeWheelReverseCMD);
- */
   }
 
   /**
