@@ -350,23 +350,24 @@ public class Vision
                                Units.inchesToMeters(10.981),
                                Units.inchesToMeters(8.44)),
              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
-    /**
-     * Right Camera
-     *//*    RIGHT_CAM("RIGHT_CAM",
-              new Rotation3d(0, Math.toRadians(-17.91), Math.toRadians(-31.6)),
-              new Translation3d(Units.inchesToMeters(28.22),
-                                Units.inchesToMeters(-19.7),
-                                Units.inchesToMeters(21.0)),
-              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+  */
+   BACKCAM("BACKCAM",
+              new Rotation3d(0, Math.toRadians(0), Math.toRadians(180)),
+              new Translation3d(-Units.inchesToMeters(13.654),
+                                Units.inchesToMeters(0),
+                                Units.inchesToMeters(0.1524)),
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
     /**
      * Center Camera*/
+
       CENTER_CAM("CENTERCAM",
               new Rotation3d(0, 0,Math.toDegrees(0)),
-              new Translation3d(13.875,
+              new Translation3d(Units.inchesToMeters(13.654),
                                 0,
-                               5.71),
+                               Units.inchesToMeters(4.43)),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
                
+      
     /**
      * Latency alert to use when high latency is detected.
      */
@@ -382,7 +383,7 @@ public class Vision
     /**
      * Standard Deviation for single tag readings for pose estimation.
      */
-    private final Matrix<N3, N1>               singleTagStdDevs;
+    private final Matrix<N3, N1>              singleTagStdDevs;
     /**
      * Standard deviation for multi-tag readings for pose estimation.
      */

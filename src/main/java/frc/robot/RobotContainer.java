@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+/*
 import frc.robot.commandgroups.IntakeInCMD;
 import frc.robot.commandgroups.IntakeOutCMD;
 import frc.robot.commandgroups.closeRobotCMD;
@@ -40,6 +41,7 @@ import frc.robot.commands.intake.intakeWheelReverseCMD;
 import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.ClawSS;
 import frc.robot.subsystems.IntakeSS;
+ */
 /*
 import frc.robot.commands.intake.intakeDownCMD;
 import frc.robot.commands.intake.intakeUpCMD;
@@ -65,7 +67,7 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer
 {
-
+/*
     //subystem declaration
     private final ClawSS mClawSS = new ClawSS();
     private final IntakeSS mIntakeSS = new IntakeSS();
@@ -94,7 +96,7 @@ public class RobotContainer
     private final closeRobotCMD mCloseRobotCMD = new closeRobotCMD(mArm_SS, mClawSS);
     private final IntakeInCMD mIntakeInCMD = new IntakeInCMD(mIntakeSS, mArm_SS);
     private final IntakeOutCMD mIntakeOutCMD = new IntakeOutCMD(mIntakeSS, mArm_SS, mClawSS);
-
+ */
 
     private final SendableChooser<Command> autoChooser;
 
@@ -104,8 +106,9 @@ public class RobotContainer
     final CommandXboxController driverXbox = new CommandXboxController(0);
 
 // Console box 
-    final GenericHID mButtonBoxPT1 = new GenericHID(2);
+    //final GenericHID mButtonBoxPT1 = new GenericHID(2);
 
+    /* 
   Trigger btn1 = new Trigger(()->mButtonBoxPT1.getRawButton(1));
   Trigger btn2 = new Trigger(()->mButtonBoxPT1.getRawButton(2));
   Trigger btn3 = new Trigger(()->mButtonBoxPT1.getRawButton(3));
@@ -130,6 +133,7 @@ public class RobotContainer
   Trigger btn22 = new Trigger(()->mButtonBoxPT1.getRawButton(22));
   Trigger btn23 = new Trigger(()->mButtonBoxPT1.getRawButton(23));
   Trigger btn24 = new Trigger(()->mButtonBoxPT1.getRawButton(24));
+  */
 
   
 
@@ -141,17 +145,17 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * -0.8,
-                                                                () -> driverXbox.getLeftX() * 0.8)
-                                                            .withControllerRotationAxis(driverXbox::getRightX)
+                                                                () -> driverXbox.getLeftY() * -1,
+                                                                () -> driverXbox.getLeftX() * -1)
+                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() * -0.5)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
   SwerveInputStream driveSlowly = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                             () -> driverXbox.getLeftY() * -0.4,
-                                                            () -> driverXbox.getLeftX() * 0.4)
-                                                        .withControllerRotationAxis(() -> driverXbox.getRightX() * 0.5)
+                                                            () -> driverXbox.getLeftX() * -0.4)
+                                                        .withControllerRotationAxis(() -> driverXbox.getRightX() * -0.5)
                                                         .deadband(OperatorConstants.DEADBAND)
                                                         .scaleTranslation(0.8)
                                                         .allianceRelativeControl(true);
@@ -333,7 +337,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     DriverStation.silenceJoystickConnectionWarning(true);
 
     //NamedCommands
-
+/*
     NamedCommands.registerCommand("ClawExitCMD", mClawExitCMD);
     NamedCommands.registerCommand("ClawGoAngled", mClawGoAngledCMD);
     NamedCommands.registerCommand("ClawGoStraight", mClawGoStraight);
@@ -353,6 +357,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     NamedCommands.registerCommand("CloseRobot", mCloseRobotCMD);
     NamedCommands.registerCommand("IntakeInCMD", mIntakeInCMD);
     NamedCommands.registerCommand("IntakeOutCMD", mIntakeOutCMD);
+     */
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("WhereWeGoing?", autoChooser);
@@ -420,6 +425,8 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     } else
     {
+      //driveRobotOrientedAngularVelocity
+      //driveFieldOrientedAnglularVelocity
       drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity);
     }
 
@@ -443,6 +450,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
        */
     } else
     {
+      /*
       //Button BOX
       if(SwerveSubsystem.isRedAlliance() == true) { 
         btn5.whileTrue(MoveToAR);
@@ -471,7 +479,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn14.whileTrue(MoveToJ);
         btn15.whileTrue(MoveToK);
         btn16.whileTrue(MoveToL);
-
+ */
       } 
       //L1-2-3-4
       //ReefPositions
@@ -480,9 +488,8 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+      driverXbox.a().whileTrue(DriveSlow);
     }
-
-  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -494,8 +501,9 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     // An example command will be run in autonomous
     //return drivebase.getAutonomousCommand("Straight Auto");
     return autoChooser.getSelected();
+    //return drivebase.getAutonomousCommand("goOut");
+    //return drivebase.getAutonomousCommand("goStraight");
     //driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
-
   }
 
   public void setMotorBrake(boolean brake)

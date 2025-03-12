@@ -35,7 +35,6 @@ public class IntakeOutCMD extends SequentialCommandGroup {
       
       new ParallelCommandGroup(
 //        new WristIntakeCMD(wrist).until(wrist.hasSomething() == true),
-        new intakeWheelCMD(intake).until(wrist.hasSomething() == true)
         )
         
 

@@ -25,7 +25,6 @@ public class IntakeSS extends SubsystemBase {
 
   private final SparkMax wheelSparkMax;
 
-  private final DigitalInput icanseeyou;
 
   public IntakeSS() {
 
@@ -38,7 +37,6 @@ public class IntakeSS extends SubsystemBase {
 
     wheelSparkMax = new SparkMax(intakeConstants.wheelSparkMaxPort, MotorType.kBrushless);
 
-    icanseeyou = new DigitalInput(0);
 
 
   }
@@ -81,9 +79,6 @@ public class IntakeSS extends SubsystemBase {
     return compressor.getPressure();
   }
 
-  public boolean doISeeYou() {
-    return icanseeyou.get();
-  }
   
 
   @Override

@@ -17,7 +17,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
  */
 public final class WristConstants {
   
-  public static final int rotateSparkMaxPort = 0;
+  public static final int rotateSparkMaxPort = 18;
 
   public static final boolean rotateIsInverted = false;
   public static final double positionConversionFactor = 8192/360;
@@ -27,7 +27,7 @@ public final class WristConstants {
   public static final double iValue = 0;
   public static final double dValue = 0;
 
-  public static final int wheelSparkMaxPort = 0;
+  public static final int wheelSparkMaxPort = 19;
   public static final boolean wheelIsInverted = false;
   public static final IdleMode wheelIdleMode = IdleMode.kCoast;
   public static final double straightPosition = 0.0;
