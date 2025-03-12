@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "3 Coral - Middle",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

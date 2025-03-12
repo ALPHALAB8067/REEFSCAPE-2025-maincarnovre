@@ -9,7 +9,7 @@ public final class intakeConstants {
   public static final int rightSolenoidFWDPort = 4;
   public static final int rightSolenoidRVRSPort = 5;
 
-  public static final int wheelSparkMaxPort = 0;
+  public static final int wheelSparkMaxPort = 20;
   public static final double wheelTurnPercent = 0.5;
   public static final double wheelReversePercent = -wheelTurnPercent;
 

@@ -27,8 +27,5 @@ public class intakeWheelCMD extends Command {
     return false;
   }
 
-public Command until(boolean intaked) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'until'");
-}
+
 }
