@@ -59,13 +59,14 @@ ARM_SS extends SubsystemBase {
     mLeadBase = new SparkMax(11,MotorType.kBrushless);
     mLeadConfig = new SparkMaxConfig();
       mLeadConfig
-      .inverted(true)
-      .idleMode(IdleMode.kCoast);
-      mLeadConfig.encoder
+      .inverted(false)
+      .idleMode(IdleMode.kBrake);
+      mLeadConfig.alternateEncoder
       .positionConversionFactor(Constants.ArmConstants.RotationdegresParTour)
-      .velocityConversionFactor(Constants.ArmConstants.RotationdegresParTour);
+      .velocityConversionFactor(Constants.ArmConstants.RotationdegresParTour)
+      .inverted(true);
       mLeadConfig.closedLoop
-      .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+      .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
       .p(0.025,ClosedLoopSlot.kSlot0)
       .i(0,ClosedLoopSlot.kSlot0)
       .d(0,ClosedLoopSlot.kSlot0)
@@ -90,10 +91,12 @@ ARM_SS extends SubsystemBase {
     mFollowExtension = new SparkMax(16, MotorType.kBrushless);
 
     mLeadExtensionConfig = new SparkMaxConfig();
-      mLeadExtensionConfig.idleMode(IdleMode.kBrake);
-      mLeadExtensionConfig.encoder
+      mLeadExtensionConfig.idleMode(IdleMode.kBrake)
+      .inverted(false);
+      mLeadExtensionConfig.alternateEncoder
       .positionConversionFactor(Constants.ArmConstants.ExtensionPouceParTour)
-      .velocityConversionFactor(Constants.ArmConstants.ExtensionPouceParTour);
+      .velocityConversionFactor(Constants.ArmConstants.ExtensionPouceParTour)
+      .inverted(true);
       mLeadExtensionConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
       .pid(0.07, 0.00005, 0.00001, ClosedLoopSlot.kSlot0)
@@ -103,16 +106,18 @@ ARM_SS extends SubsystemBase {
 
       
     mFollowExtensionConfig = new SparkMaxConfig();
-      mFollowExtensionConfig.follow(mLeadExtension,true);
+      mFollowExtensionConfig.follow(mLeadExtension,false);
+  
     mFollowExtension.configure(mFollowExtensionConfig,ResetMode.kNoResetSafeParameters,PersistMode.kNoPersistParameters);
 
     //WRIST MOTOR
     mWristMotor = new SparkMax(17,MotorType.kBrushless);
       mWristConfig = new SparkMaxConfig();
         mWristConfig.idleMode(IdleMode.kBrake);
-      mWristConfig.encoder
-        .positionConversionFactor(360)
-        .velocityConversionFactor(1);
+      mWristConfig.alternateEncoder
+        .positionConversionFactor(Constants.ArmConstants.WristdegresParTour)
+        .velocityConversionFactor(1)
+        .inverted(true);
       mWristConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
       .pid(0.007,0,0,ClosedLoopSlot.kSlot0)
