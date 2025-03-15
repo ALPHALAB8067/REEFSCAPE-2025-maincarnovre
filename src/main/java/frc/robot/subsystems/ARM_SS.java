@@ -125,11 +125,12 @@ ARM_SS extends SubsystemBase {
     //WRIST MOTOR
     mWristMotor = new SparkMax(17,MotorType.kBrushless);
       mWristConfig = new SparkMaxConfig();
-        mWristConfig.idleMode(IdleMode.kBrake);
+        mWristConfig.idleMode(IdleMode.kBrake)
+        .inverted(false);
       mWristConfig.alternateEncoder
         .positionConversionFactor(Constants.ArmConstants.WristdegresParTour)
-        .velocityConversionFactor(1)
-        .inverted(true);
+        .velocityConversionFactor(Constants.ArmConstants.WristdegresParTour)
+        .inverted(false);
       mWristConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
       .pid(0.007,0,0,ClosedLoopSlot.kSlot0)
@@ -217,7 +218,7 @@ ARM_SS extends SubsystemBase {
       return mArmEncoder.getPosition() - Constants.ArmConstants.RotationEncoderOffSet;
     }
     public double getExtensionPosition(){
-      return getExtensionPosition()- Constants.ArmConstants.ExtensionEncoderOffSet;
+      return mExtensionEncoder.getPosition()- Constants.ArmConstants.ExtensionEncoderOffSet;
     }
     public double getWristPosition(){
       return mWristEncoder.getPosition() - Constants.ArmConstants.WristEncoderOffSet;
@@ -445,6 +446,7 @@ ARM_SS extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    PositionToCoordinates();
     SmartDashboard.putNumber("actual Extension position", getExtensionPosition());
     SmartDashboard.putNumber("actual rotation position", getArmPosition());
     SmartDashboard.putNumber("actual Wrist Position", getWristPosition());

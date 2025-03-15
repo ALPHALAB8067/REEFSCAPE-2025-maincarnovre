@@ -59,7 +59,7 @@ public final class Constants
 
     public static final double RotationEncoderOffSet = 0;
     public static final double ExtensionEncoderOffSet = 0;
-    public static final double WristEncoderOffSet = -109;
+    public static final double WristEncoderOffSet = -100;
     public static final double WristLength = 20.2;
   }
 
