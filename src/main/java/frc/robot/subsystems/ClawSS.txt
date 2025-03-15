@@ -30,7 +30,7 @@ public class ClawSS extends SubsystemBase {
 
   public ClawSS() {
 
-    rotateSparkMax = new SparkMax(WristConstants.rotateSparkMaxPort, MotorType.kBrushless);
+    rotateSparkMax = new SparkMax(18, MotorType.kBrushless);
 
     rotateConfig = new SparkMaxConfig();
     rotateConfig.inverted(WristConstants.rotateIsInverted);
@@ -42,7 +42,7 @@ public class ClawSS extends SubsystemBase {
     .i(WristConstants.iValue)
     .d(WristConstants.dValue);
 
-    wheelSparkMax = new SparkMax(WristConstants.wheelSparkMaxPort, MotorType.kBrushless);
+    wheelSparkMax = new SparkMax(19, MotorType.kBrushless);
 
     wheelConfig = new SparkMaxConfig();
     wheelConfig.inverted(WristConstants.wheelIsInverted);
