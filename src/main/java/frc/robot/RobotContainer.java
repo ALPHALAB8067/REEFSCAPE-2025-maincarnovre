@@ -21,9 +21,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-//import frc.robot.commandgroups.IntakeInCMD;
-//import frc.robot.commandgroups.IntakeOutCMD;
-//import frc.robot.commandgroups.closeRobotCMD;
+import frc.robot.commands.goToCoralStation;
+////import frc.robot.commandgroups.IntakeInCMD;
+////import frc.robot.commandgroups.IntakeOutCMD;
+////import frc.robot.commandgroups.closeRobotCMD;
 import frc.robot.commands.goToL1;
 import frc.robot.commands.goToL2;
 import frc.robot.commands.goToL3;
@@ -91,6 +92,7 @@ public class RobotContainer
     private final goToL3 mGoToL3 = new goToL3(mArm_SS);
     private final goToL4 mGoToL4 = new goToL4(mArm_SS);
     private final goToRest mGoToRest = new goToRest(mArm_SS);
+    private final goToCoralStation mGoToCoralStation = new goToCoralStation(mArm_SS);
 
     //command groups declaration
     //private final closeRobotCMD mCloseRobotCMD = new closeRobotCMD(mArm_SS, mClawSS);
@@ -106,6 +108,7 @@ public class RobotContainer
 
 // Console box 
     final GenericHID mButtonBoxPT1 = new GenericHID(2);
+    final GenericHID mButtonBoxPT2 = new GenericHID(3);
 
   Trigger btn1 = new Trigger(()->mButtonBoxPT1.getRawButton(1));
   Trigger btn2 = new Trigger(()->mButtonBoxPT1.getRawButton(2));
@@ -133,6 +136,31 @@ public class RobotContainer
   Trigger btn24 = new Trigger(()->mButtonBoxPT1.getRawButton(24));
 
   
+  Trigger mbtn1 = new Trigger(()->mButtonBoxPT2.getRawButton(1));
+  Trigger mbtn2 = new Trigger(()->mButtonBoxPT2.getRawButton(2));
+  Trigger mbtn3 = new Trigger(()->mButtonBoxPT2.getRawButton(3));
+  Trigger mbtn4 = new Trigger(()->mButtonBoxPT2.getRawButton(4));
+  Trigger mbtn5 = new Trigger(()->mButtonBoxPT2.getRawButton(5));
+  Trigger mbtn6 = new Trigger(()->mButtonBoxPT2.getRawButton(6));
+  Trigger mbtn7 = new Trigger(()->mButtonBoxPT2.getRawButton(7));
+  Trigger mbtn8 = new Trigger(()->mButtonBoxPT2.getRawButton(8));
+  Trigger mbtn9 = new Trigger(()->mButtonBoxPT2.getRawButton(9));
+  Trigger mbtn10 = new Trigger(()->mButtonBoxPT2.getRawButton(10));
+  Trigger mbtn11 = new Trigger(()->mButtonBoxPT2.getRawButton(11));
+  Trigger mbtn12 = new Trigger(()->mButtonBoxPT2.getRawButton(12));
+  Trigger mbtn13 = new Trigger(()->mButtonBoxPT2.getRawButton(13));
+  Trigger mbtn14 = new Trigger(()->mButtonBoxPT2.getRawButton(14));
+  Trigger mbtn15 = new Trigger(()->mButtonBoxPT2.getRawButton(15));
+  Trigger mbtn16 = new Trigger(()->mButtonBoxPT2.getRawButton(16));
+  Trigger mbtn17 = new Trigger(()->mButtonBoxPT2.getRawButton(17));
+  Trigger mbtn18 = new Trigger(()->mButtonBoxPT2.getRawButton(18));
+  Trigger mbtn19 = new Trigger(()->mButtonBoxPT2.getRawButton(19));
+  Trigger mbtn20 = new Trigger(()->mButtonBoxPT2.getRawButton(20));
+  Trigger mbtn21 = new Trigger(()->mButtonBoxPT2.getRawButton(21));
+  Trigger mbtn22 = new Trigger(()->mButtonBoxPT2.getRawButton(22));
+  Trigger mbtn23 = new Trigger(()->mButtonBoxPT2.getRawButton(23));
+  Trigger mbtn24 = new Trigger(()->mButtonBoxPT2.getRawButton(24));
+
 
   // The robot's subsystems and commands are defined here...
  
@@ -200,11 +228,12 @@ public class RobotContainer
 
 
    
-      btn1.whileTrue(mGoToRest);
-      btn2.whileTrue(mGoToL1);
-      btn3.whileTrue(mGoToL2);
-      btn4.whileTrue(mGoToL3);
+      mbtn8.whileTrue(mGoToRest);
+      btn12.whileTrue(mGoToL1);
+      btn7.whileTrue(mGoToL2);
+      btn3.whileTrue(mGoToL3);
       btn5.whileTrue(mGoToL4);
+      mbtn12.whileTrue(mGoToCoralStation);
 
 
       //L1-2-3-4

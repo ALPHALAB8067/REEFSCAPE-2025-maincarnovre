@@ -18,6 +18,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.geometry.CoordinateAxis;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -52,6 +53,17 @@ ARM_SS extends SubsystemBase {
   private boolean currentlyRunning = false;
   public  boolean done = false;
   public PositionType_SS currentPostion = PositionsDictionnary.mPositionRest;
+
+  //for kinematics
+  private double mArmAngle;
+  private double mArmLength;
+  private double mWristAngle;
+  private double firstSegmentX;
+  private double firstSegmentY;
+  private double secondSegmentX;
+  private double secondSegmentY;
+  private double finalX;
+  private double finalY;
 
   /** Creates a new ARM_SS. */
   public ARM_SS() {
@@ -174,13 +186,13 @@ ARM_SS extends SubsystemBase {
       currentlyRunning = true;
     }
     else if(currentlyRunning==true){
-            if (mExtensionEncoder.getPosition() <= 0 + 2 ){
+            if (getExtensionPosition() <= 0 + 2 ){
                 mArmPIDControler.setReference(armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
               }
             if(mArmEncoder.getPosition() - Constants.ArmConstants.RotationEncoderOffSet >= armAngle - 10 && mArmEncoder.getPosition() - Constants.ArmConstants.RotationEncoderOffSet <= armAngle + 10){
                 mExtensionPIDController.setReference(longueur, ControlType.kPosition,ClosedLoopSlot.kSlot0);
                 //currentlyRunning = false;
-                if ((mExtensionEncoder.getPosition() >= longueur-1) && (mExtensionEncoder.getPosition() <= longueur + 1) ){
+                if ((getExtensionPosition() >= longueur-1) && (getExtensionPosition() <= longueur + 1) ){
                   done = true;
                   currentlyRunning = false;
                 }
@@ -189,27 +201,56 @@ ARM_SS extends SubsystemBase {
       }
     }
         */
+    //setters
+    public void setArmPosition(double pPosition){
+      mArmPIDControler.setReference(pPosition + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+    }
+    public void setExtensionPosition(double pPosition){
+      mExtensionPIDController.setReference(pPosition, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+    }
+    public void setWristPosition(double pPosition){
+      mWristPIDController.setReference(pPosition + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+    }
 
+    //getters
     public double getArmPosition(){
       return mArmEncoder.getPosition() - Constants.ArmConstants.RotationEncoderOffSet;
     }
     public double getExtensionPosition(){
-      return mExtensionEncoder.getPosition()- Constants.ArmConstants.ExtensionEncoderOffSet;
+      return getExtensionPosition()- Constants.ArmConstants.ExtensionEncoderOffSet;
     }
     public double getWristPosition(){
       return mWristEncoder.getPosition() - Constants.ArmConstants.WristEncoderOffSet;
     }
+    //kinematics
+    public void PositionToCoordinates(){
+      mArmAngle = getArmPosition();
+      mArmLength = getExtensionPosition();
+      mWristAngle = getWristPosition();
+      firstSegmentX = mArmLength * Math.cos(mArmAngle);
+      SmartDashboard.putNumber("firstSegmentX", firstSegmentX);
+      firstSegmentY = mArmLength * Math.sin(mArmAngle);
+      SmartDashboard.putNumber("firstSegmentY", firstSegmentY);
+                        //need to change this value curently 0
+      secondSegmentX = Constants.ArmConstants.WristLength * Math.cos(mWristAngle);
+      SmartDashboard.putNumber("secondSegmentX", secondSegmentX);
+      secondSegmentY = Constants.ArmConstants.WristLength * Math.sin(mWristAngle);
+      SmartDashboard.putNumber("secondSegmentY", secondSegmentY);
+      finalX = firstSegmentX + secondSegmentX;
+      SmartDashboard.putNumber("finalX", finalX);
+      finalY = firstSegmentY + secondSegmentY;
+      SmartDashboard.putNumber("finalY", finalY);
 
-
+    }
 
     public boolean isArmInPosition (double wantedarmAngle,double tolerance){
-      return (mArmEncoder.getPosition() - Constants.ArmConstants.RotationEncoderOffSet >= wantedarmAngle - tolerance && mArmEncoder.getPosition() - Constants.ArmConstants.RotationEncoderOffSet <= wantedarmAngle + tolerance);
+      return (getArmPosition()>= wantedarmAngle - tolerance && getArmPosition() <= wantedarmAngle + tolerance);
     }
     public boolean isLenghtInPostition(double wantedArmLength,double tolerance){
-      return (mExtensionEncoder.getPosition() >= wantedArmLength - tolerance && mExtensionEncoder.getPosition() <= wantedArmLength + tolerance);
+      return (getExtensionPosition() >= wantedArmLength - tolerance && getExtensionPosition() <= wantedArmLength + tolerance);
     }
     public boolean isWristInPosition(double wantedarmAngle,double tolerance){
-      return (mWristEncoder.getPosition() - Constants.ArmConstants.WristEncoderOffSet >= wantedarmAngle - tolerance && mWristEncoder.getPosition() - Constants.ArmConstants.WristEncoderOffSet <= wantedarmAngle + tolerance);
+      return (getWristPosition() >= wantedarmAngle - tolerance && getWristPosition() <= wantedarmAngle + tolerance);
     }
 //old way of doing it
    /*  public void strategie1A(double pPosition.armAngle,double pPosition.armTolerance, double pPosition.armLength,double pPosition.lenghtTolerance,double pPosition.wrist ,double pPosition.wristTolerance,double rotationWrist){
@@ -234,7 +275,7 @@ ARM_SS extends SubsystemBase {
       }
 */
 
-
+    //STRATEGIES
         //arm -> wrist -> longueur 
       public void S1A(PositionType_SS pPosition){
         SmartDashboard.putString("order","arm -> wrist -> longueur");
@@ -368,7 +409,7 @@ ARM_SS extends SubsystemBase {
           }
         
       
- 
+    //for setting and getting hardcoded positions
       public PositionType_SS whereAmI (){
         return currentPostion; 
       }
@@ -399,9 +440,9 @@ ARM_SS extends SubsystemBase {
     mLeadBase.set(0);
   }
 
-  /*public void stopWrist(){
-    mWrist.set(0);
-  }*/
+  public void stopWrist(){
+    mWristMotor.set(0);
+  }
   @Override
   public void periodic() {
     SmartDashboard.putNumber("actual Extension position", getExtensionPosition());
