@@ -53,11 +53,17 @@ public final class Constants
   }
 
   public static class ArmConstants{
-    public static final double ExtensionPouceParTour = 3.49 ;
-    public static final double RotationdegresParTour = 154.285;
-    public static final double RotationEncoderSafeZone = 17;
-    public static final double WristEncoderSafeZone = 0;
+    public static final double RotationdegresParTour = 33;
+    public static final double ExtensionPouceParTour = 4.92 ;
+    public static final double WristdegresParTour = 76.5;
+
+    public static final double RotationEncoderOffSet = 0;
+    public static final double ExtensionEncoderOffSet = 0;
+    public static final double WristEncoderOffSet = -100;
+    public static final double WristLength = 20.2;
   }
+
+
 
 
 }
