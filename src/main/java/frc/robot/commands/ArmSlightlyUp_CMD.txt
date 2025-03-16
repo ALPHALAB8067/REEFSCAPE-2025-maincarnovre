@@ -14,6 +14,7 @@ public class ArmSlightlyUp_CMD extends Command {
   public ArmSlightlyUp_CMD(ARM_SS pArm_SS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
+    
   }
 
   // Called when the command is initially scheduled.
