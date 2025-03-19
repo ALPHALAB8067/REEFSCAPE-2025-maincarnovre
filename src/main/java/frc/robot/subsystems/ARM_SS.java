@@ -224,6 +224,9 @@ ARM_SS extends SubsystemBase {
     public double getWristPosition(){
       return mWristEncoder.getPosition() - Constants.ArmConstants.WristEncoderOffSet;
     }
+    public double GetPositionTypeAngle(){
+      return whereAmI().armAngle;
+    }
     //kinematics
     public void PositionToCoordinates(){
       mArmAngle = getArmPosition();

@@ -25,6 +25,8 @@ public final class PositionsDictionnary {                        //(angle bras, 
   public static PositionType_SS mPositionL3 = new PositionType_SS(  34,    23, 6, 2,       5,     2,  90,"L3");
   public static PositionType_SS mPositionL4 = new PositionType_SS(  70,          -30, 20,2,5,     2,  90,"L4");
   public static PositionType_SS mPositionCoralStation = new PositionType_SS(45, -45,  5, 2,5,     2,   0, "coralStation");
-  //public static PositionType_SS mPositionIntake = new PositionType_SS(0.0, 0.0, 2.0,2.0,2.0,2.0,0);
+  public static PositionType_SS mPositionIntake = new PositionType_SS(24.3, -91, 0, 2, 5, 2, 0, "Intake");
+  public static PositionType_SS mPositionAlgae = new PositionType_SS(42.7, -42.8, 7.77, 2, 5, 2, 0, "algae");
+
   
 }
