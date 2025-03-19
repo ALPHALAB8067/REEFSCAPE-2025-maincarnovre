@@ -377,6 +377,11 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
   private void configureBindings()
   {
 
+    driverXbox.a().onTrue(mIntakeDownCMD);
+    driverXbox.b().onTrue(mIntakeUpCMD);
+    driverXbox.x().whileTrue(mClawIntakeCMD);
+    driverXbox.y().whileTrue(mIntakeWheelCMD);
+    
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
@@ -482,13 +487,17 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
  
       } 
       //L1-2-3-4
-      //ReefPositions
 
+
+
+      //ReefPositions
+/* 
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
       driverXbox.a().whileTrue(DriveSlow); 
+      */
     }
     }
 

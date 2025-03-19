@@ -72,7 +72,7 @@ ARM_SS extends SubsystemBase {
     mLeadConfig = new SparkMaxConfig();
       mLeadConfig
       .inverted(false)
-      .idleMode(IdleMode.kBrake);
+      .idleMode(IdleMode.kCoast);
       mLeadConfig.alternateEncoder
       .positionConversionFactor(Constants.ArmConstants.RotationdegresParTour)
       .velocityConversionFactor(Constants.ArmConstants.RotationdegresParTour)
@@ -91,7 +91,8 @@ ARM_SS extends SubsystemBase {
     mFollowBase2 = new SparkMax(13, MotorType.kBrushless);
     mFollowBase3 = new SparkMax(14, MotorType.kBrushless);
       mFollowConfig1 = new SparkMaxConfig();
-      mFollowConfig1.follow(mLeadBase);
+      mFollowConfig1.follow(mLeadBase)
+      .idleMode(IdleMode.kCoast);
       mFollowConfig2 = new SparkMaxConfig();
       mFollowConfig2.follow(mLeadBase,true);
     mFollowBase1.configure(mFollowConfig1,ResetMode.kNoResetSafeParameters,PersistMode.kNoPersistParameters);
