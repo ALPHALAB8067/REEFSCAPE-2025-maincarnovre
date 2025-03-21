@@ -21,6 +21,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.goToCoralStation;
+import frc.robot.commands.goToL1;
+import frc.robot.commands.goToL2;
+import frc.robot.commands.goToL3;
+import frc.robot.commands.goToL4;
+import frc.robot.commands.goToRest;
+import frc.robot.subsystems.ARM_SS;
 /*
 import frc.robot.commandgroups.IntakeInCMD;
 import frc.robot.commandgroups.IntakeOutCMD;
@@ -99,14 +106,19 @@ public class RobotContainer
  */
 
     private final SendableChooser<Command> autoChooser;
+    
 
 
 
 // Xbox Controller
     final CommandXboxController driverXbox = new CommandXboxController(0);
 
+
+
 // Console box 
 final GenericHID mButtonBoxPT1 = new GenericHID(2);
+
+//reef
 Trigger btn1 = new Trigger(()->mButtonBoxPT1.getRawButton(1));
 Trigger btn2 = new Trigger(()->mButtonBoxPT1.getRawButton(2));
 Trigger btn4 = new Trigger(()->mButtonBoxPT1.getRawButton(4));
@@ -115,12 +127,31 @@ Trigger btn8 = new Trigger(()->mButtonBoxPT1.getRawButton(8));
 Trigger btn10 = new Trigger(()->mButtonBoxPT1.getRawButton(10));
 Trigger btn11 = new Trigger(()->mButtonBoxPT1.getRawButton(11));
 
+Trigger btn5 = new Trigger(()->mButtonBoxPT1.getRawButton(5));
+Trigger btn3 = new Trigger(()->mButtonBoxPT1.getRawButton(3));
+Trigger btn7 = new Trigger(()->mButtonBoxPT1.getRawButton(7));
+Trigger btn12 = new Trigger(()->mButtonBoxPT1.getRawButton(12));
+
 final GenericHID mButtonBoxPT2 = new GenericHID(3);
+//reef 
 Trigger Sbtn1 = new Trigger(()->mButtonBoxPT2.getRawButton(1));
 Trigger Sbtn2 = new Trigger(()->mButtonBoxPT2.getRawButton(2));
 Trigger Sbtn3 = new Trigger(()->mButtonBoxPT2.getRawButton(3));
 Trigger Sbtn6 = new Trigger(()->mButtonBoxPT2.getRawButton(6));
 Trigger Sbtn7 = new Trigger(()->mButtonBoxPT2.getRawButton(7));
+
+Trigger Sbtn8 = new Trigger(()->mButtonBoxPT2.getRawButton(8));
+Trigger Sbtn12 = new Trigger(()->mButtonBoxPT2.getRawButton(12));
+
+
+
+private final ARM_SS mArm_SS = new ARM_SS();
+private final goToRest mGoToRest = new goToRest(mArm_SS);
+private final goToL3 mGoToL3 = new goToL3(mArm_SS);
+private final goToL2 mGoToL2 = new goToL2(mArm_SS);
+private final goToL1 mGoToL1 = new goToL1(mArm_SS);
+private final goToL4 mGoToL4 = new goToL4(mArm_SS);
+private final goToCoralStation mgotocoral = new goToCoralStation(mArm_SS);
 
 
 
@@ -366,6 +397,14 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
   private void configureBindings()
   {
 
+    btn3.whileTrue(mGoToL3);
+    btn5.whileTrue(mGoToL4);
+    Sbtn8.whileTrue(mGoToRest);
+    btn7.whileTrue(mGoToL2);
+    Sbtn8.whileTrue(mGoToL1);
+    Sbtn8.whileTrue(mGoToL1);
+    Sbtn12.whileTrue(mgotocoral);
+
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
@@ -436,12 +475,15 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
       driverXbox.x().onTrue(drivebase.sysIdDriveMotorCommand());
 
       driverXbox.y().onTrue(drivebase.sysIdAngleMotorCommand());
+
        */
     } else
     {
+     
       
+    
       //Button BOX
-      if(SwerveSubsystem.isRedAlliance() == true) { 
+    //  if(SwerveSubsystem.isRedAlliance() == true) { 
         Sbtn1.whileTrue(MoveToGR);
         Sbtn2.whileTrue(MoveToHR);
         Sbtn3.whileTrue(MoveToIR);
@@ -470,7 +512,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
              11  2 
 */
 
-      } else if(SwerveSubsystem.isRedAlliance() == false){ 
+    /*   } else if(SwerveSubsystem.isRedAlliance() == false){ 
         Sbtn1.whileTrue(MoveToG);
         Sbtn2.whileTrue(MoveToH);
         Sbtn3.whileTrue(MoveToI);
@@ -483,9 +525,9 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn8.whileTrue(MoveToF);
         btn10.whileTrue(MoveToC);
         btn11.whileTrue(MoveToA);
-    
+    */
  
-      } 
+    //  } 
       //L1-2-3-4
       //ReefPositions
 

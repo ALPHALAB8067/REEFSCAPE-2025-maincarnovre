@@ -18,7 +18,7 @@ public class ClawIntakeCMD extends Command {
 
   @Override
   public void execute() {
-    clawss.reverseWheel();
+    clawss.turnWheel();
   }
 
   @Override
