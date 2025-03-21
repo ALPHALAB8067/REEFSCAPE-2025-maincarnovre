@@ -10,15 +10,15 @@ import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class dontbreakintake extends Command {
+public class dontbreakintakedown extends Command {
   /** Creates a new dontbreakintake. */
   private final ARM_SS mArm_SS;
   PositionType_SS mCurrent;
-  double startpos;
+  public static double startpos;
+  public static double degree = 10;
 
 
-
-  public dontbreakintake(ARM_SS pArm_SS) {
+  public dontbreakintakedown(ARM_SS pArm_SS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
   }
@@ -26,24 +26,24 @@ public class dontbreakintake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startpos = mArm_SS.GetPositionTypeAngle();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     mCurrent = mArm_SS.whereAmI();
+
     if(mCurrent == PositionsDictionnary.mPositionRest) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
     }
     if(mCurrent == PositionsDictionnary.mPositionL1) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
     }
     if(mCurrent == PositionsDictionnary.mPositionL2) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
     }
 
   
@@ -58,12 +58,11 @@ public class dontbreakintake extends Command {
   @Override
   public boolean isFinished() {
     
-    //startpos == mArm_SS.GetPositionTypeAngle() - dontbreakintakedown.degree
-    if(mArm_SS.isArmInPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree, 2)) {
+    if(mArm_SS.isArmInPosition(mArm_SS.GetPositionTypeAngle(), 2)) {
       return true;
     } else {
       return false;
-    }
-    
+    }  
+
   }
 }
