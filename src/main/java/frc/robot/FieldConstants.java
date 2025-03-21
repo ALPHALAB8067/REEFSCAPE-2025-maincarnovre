@@ -44,7 +44,7 @@ public final class FieldConstants
 
       public static Pose2d PoteauA = new Pose2d(3.181, 4.177, Rotation2d.fromDegrees(0));
       public static Pose2d PoteauB = new Pose2d(3.181, 3.849, Rotation2d.fromDegrees(0));
-      public static Pose2d PoteauC = new Pose2d(3.695, 3.021, Rotation2d.fromDegrees(60));
+      public static Pose2d PoteauC = new Pose2d(3.676, 2.972, Rotation2d.fromDegrees(60));
       public static Pose2d PoteauD = new Pose2d(4.000, 2.816, Rotation2d.fromDegrees(60));
       public static Pose2d PoteauE = new Pose2d(4.982, 2.835, Rotation2d.fromDegrees(120));
       public static Pose2d PoteauF = new Pose2d(5.245, 3.000, Rotation2d.fromDegrees(120));
@@ -56,7 +56,7 @@ public final class FieldConstants
       public static Pose2d PoteauL = new Pose2d(3.706,5.060,Rotation2d.fromDegrees(-60));
    }
    public final class StationRed {
-      public static Pose2d REDStationDown = new Pose2d(16.819,1.418,Rotation2d.fromDegrees(-55));
+      public static Pose2d RedDown = new Pose2d(15.980, 0.759, Rotation2d.fromDegrees(-60));
    }
 
 }

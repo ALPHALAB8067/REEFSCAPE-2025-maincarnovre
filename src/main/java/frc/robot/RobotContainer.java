@@ -106,34 +106,23 @@ public class RobotContainer
     final CommandXboxController driverXbox = new CommandXboxController(0);
 
 // Console box 
-    //final GenericHID mButtonBoxPT1 = new GenericHID(2);
+final GenericHID mButtonBoxPT1 = new GenericHID(2);
+Trigger btn1 = new Trigger(()->mButtonBoxPT1.getRawButton(1));
+Trigger btn2 = new Trigger(()->mButtonBoxPT1.getRawButton(2));
+Trigger btn4 = new Trigger(()->mButtonBoxPT1.getRawButton(4));
+Trigger btn6 = new Trigger(()->mButtonBoxPT1.getRawButton(6));
+Trigger btn8 = new Trigger(()->mButtonBoxPT1.getRawButton(8));
+Trigger btn10 = new Trigger(()->mButtonBoxPT1.getRawButton(10));
+Trigger btn11 = new Trigger(()->mButtonBoxPT1.getRawButton(11));
 
-    /* 
-  Trigger btn1 = new Trigger(()->mButtonBoxPT1.getRawButton(1));
-  Trigger btn2 = new Trigger(()->mButtonBoxPT1.getRawButton(2));
-  Trigger btn3 = new Trigger(()->mButtonBoxPT1.getRawButton(3));
-  Trigger btn4 = new Trigger(()->mButtonBoxPT1.getRawButton(4));
-  Trigger btn5 = new Trigger(()->mButtonBoxPT1.getRawButton(5));
-  Trigger btn6 = new Trigger(()->mButtonBoxPT1.getRawButton(6));
-  Trigger btn7 = new Trigger(()->mButtonBoxPT1.getRawButton(7));
-  Trigger btn8 = new Trigger(()->mButtonBoxPT1.getRawButton(8));
-  Trigger btn9 = new Trigger(()->mButtonBoxPT1.getRawButton(9));
-  Trigger btn10 = new Trigger(()->mButtonBoxPT1.getRawButton(10));
-  Trigger btn11 = new Trigger(()->mButtonBoxPT1.getRawButton(11));
-  Trigger btn12 = new Trigger(()->mButtonBoxPT1.getRawButton(12));
-  Trigger btn13 = new Trigger(()->mButtonBoxPT1.getRawButton(13));
-  Trigger btn14 = new Trigger(()->mButtonBoxPT1.getRawButton(14));
-  Trigger btn15 = new Trigger(()->mButtonBoxPT1.getRawButton(15));
-  Trigger btn16 = new Trigger(()->mButtonBoxPT1.getRawButton(16));
-  Trigger btn17 = new Trigger(()->mButtonBoxPT1.getRawButton(17));
-  Trigger btn18 = new Trigger(()->mButtonBoxPT1.getRawButton(18));
-  Trigger btn19 = new Trigger(()->mButtonBoxPT1.getRawButton(19));
-  Trigger btn20 = new Trigger(()->mButtonBoxPT1.getRawButton(20));
-  Trigger btn21 = new Trigger(()->mButtonBoxPT1.getRawButton(21));
-  Trigger btn22 = new Trigger(()->mButtonBoxPT1.getRawButton(22));
-  Trigger btn23 = new Trigger(()->mButtonBoxPT1.getRawButton(23));
-  Trigger btn24 = new Trigger(()->mButtonBoxPT1.getRawButton(24));
-  */
+final GenericHID mButtonBoxPT2 = new GenericHID(3);
+Trigger Sbtn1 = new Trigger(()->mButtonBoxPT2.getRawButton(1));
+Trigger Sbtn2 = new Trigger(()->mButtonBoxPT2.getRawButton(2));
+Trigger Sbtn3 = new Trigger(()->mButtonBoxPT2.getRawButton(3));
+Trigger Sbtn6 = new Trigger(()->mButtonBoxPT2.getRawButton(6));
+Trigger Sbtn7 = new Trigger(()->mButtonBoxPT2.getRawButton(7));
+
+
 
   
 
@@ -450,36 +439,52 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
        */
     } else
     {
-      /*
+      
       //Button BOX
       if(SwerveSubsystem.isRedAlliance() == true) { 
-        btn5.whileTrue(MoveToAR);
-        btn6.whileTrue(MoveToBR);
-        btn7.whileTrue(MoveToCR);
-        btn8.whileTrue(MoveToDR);
-        btn9.whileTrue(MoveToER);
-        btn10.whileTrue(MoveToFR);
-        btn11.whileTrue(MoveToGR);
-        btn12.whileTrue(MoveToHR);
-        btn13.whileTrue(MoveToIR);
-        btn14.whileTrue(MoveToJR);
-        btn15.whileTrue(MoveToKR);
-        btn16.whileTrue(MoveToLR);
+        Sbtn1.whileTrue(MoveToGR);
+        Sbtn2.whileTrue(MoveToHR);
+        Sbtn3.whileTrue(MoveToIR);
+        Sbtn6.whileTrue(MoveToER);
+        Sbtn7.whileTrue(MoveToKR);
+        btn1.whileTrue(MoveToDR);
+        btn2.whileTrue(MoveToBR);
+        btn4.whileTrue(MoveToLR);
+        btn6.whileTrue(MoveToJR);
+        btn8.whileTrue(MoveToFR);
+        btn10.whileTrue(MoveToCR);
+        btn11.whileTrue(MoveToAR);
+
+
+        /* 
+
+        // Console box RED 
+
+
+             S2 S1
+             __ __ 
+      S3    /     \  8 
+      S6   |       | 6
+      S7   |       | 1
+         4  \__ __/  10
+             11  2 
+*/
 
       } else if(SwerveSubsystem.isRedAlliance() == false){ 
-        btn5.whileTrue(MoveToA);
-        btn6.whileTrue(MoveToB);
-        btn7.whileTrue(MoveToC);
-        btn8.whileTrue(MoveToD);
-        btn9.whileTrue(MoveToE);
-        btn10.whileTrue(MoveToF);
-        btn11.whileTrue(MoveToG);
-        btn12.whileTrue(MoveToH);
-        btn13.whileTrue(MoveToI);
-        btn14.whileTrue(MoveToJ);
-        btn15.whileTrue(MoveToK);
-        btn16.whileTrue(MoveToL);
- */
+        Sbtn1.whileTrue(MoveToG);
+        Sbtn2.whileTrue(MoveToH);
+        Sbtn3.whileTrue(MoveToI);
+        Sbtn6.whileTrue(MoveToE);
+        Sbtn7.whileTrue(MoveToK);
+        btn1.whileTrue(MoveToD);
+        btn2.whileTrue(MoveToB);
+        btn4.whileTrue(MoveToL);
+        btn6.whileTrue(MoveToJ);
+        btn8.whileTrue(MoveToF);
+        btn10.whileTrue(MoveToC);
+        btn11.whileTrue(MoveToA);
+    
+ 
       } 
       //L1-2-3-4
       //ReefPositions
@@ -490,6 +495,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
       driverXbox.rightBumper().onTrue(Commands.none());
       driverXbox.a().whileTrue(DriveSlow);
     }
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
