@@ -113,9 +113,10 @@ ARM_SS extends SubsystemBase {
       .inverted(true);
       mLeadExtensionConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-      .pid(0.03, 0.000027, 0.00005, ClosedLoopSlot.kSlot0)
-      .minOutput(-0.30)
-      .maxOutput(0.30);
+      .pid(0.025, 0.000041, 0.0000851, ClosedLoopSlot.kSlot0)
+      .iZone(10)
+      .minOutput(-0.115)
+      .maxOutput(0.35);
     mLeadExtension.configure(mLeadExtensionConfig,ResetMode.kNoResetSafeParameters,PersistMode.kNoPersistParameters);
 
       
@@ -135,9 +136,9 @@ ARM_SS extends SubsystemBase {
         .inverted(false);
       mWristConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-      .pid(0.007,0,0,ClosedLoopSlot.kSlot0)
-      .minOutput(-0.35)
-      .maxOutput(0.35);
+      .pid(0.028,0,0,ClosedLoopSlot.kSlot0)
+      .minOutput(-0.7)
+      .maxOutput(0.7);
     mWristMotor.configure(mWristConfig,ResetMode.kNoResetSafeParameters,PersistMode.kNoPersistParameters);
       
     mExtensionEncoder = mLeadExtension.getAlternateEncoder();
