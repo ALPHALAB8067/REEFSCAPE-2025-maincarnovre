@@ -11,7 +11,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.util.WristConstants;
+import frc.robot.util.ClawConstants;
 
 public class ClawSS extends SubsystemBase {
 
@@ -23,36 +23,32 @@ public class ClawSS extends SubsystemBase {
 
   private final SparkAbsoluteEncoder thru;
 
-  private final SparkClosedLoopController rotatePID;
-
-  private final DigitalInput digitalInput;
-  
+  private final SparkClosedLoopController rotatePID;  
 
   public ClawSS() {
 
-    rotateSparkMax = new SparkMax(WristConstants.rotateSparkMaxPort, MotorType.kBrushless);
+    rotateSparkMax = new SparkMax(ClawConstants.rotateSparkMaxPort, MotorType.kBrushless);
 
     rotateConfig = new SparkMaxConfig();
-    rotateConfig.inverted(WristConstants.rotateIsInverted);
-    rotateConfig.idleMode(WristConstants.rotateIdleMode);
-    rotateConfig.encoder.positionConversionFactor(WristConstants.positionConversionFactor);
+    rotateConfig.inverted(ClawConstants.rotateIsInverted);
+    rotateConfig.idleMode(ClawConstants.rotateIdleMode);
+    rotateConfig.encoder.positionConversionFactor(ClawConstants.positionConversionFactor);
     rotateConfig.closedLoop
-    .feedbackSensor(WristConstants.feedbacksensor)
-    .p(WristConstants.pValue)
-    .i(WristConstants.iValue)
-    .d(WristConstants.dValue);
+    .feedbackSensor(ClawConstants.feedbacksensor)
+    .p(ClawConstants.pValue)
+    .i(ClawConstants.iValue)
+    .d(ClawConstants.dValue);
 
-    wheelSparkMax = new SparkMax(WristConstants.wheelSparkMaxPort, MotorType.kBrushless);
+    wheelSparkMax = new SparkMax(ClawConstants.wheelSparkMaxPort, MotorType.kBrushless);
 
     wheelConfig = new SparkMaxConfig();
-    wheelConfig.inverted(WristConstants.wheelIsInverted);
-    wheelConfig.idleMode(WristConstants.wheelIdleMode);
+    wheelConfig.inverted(ClawConstants.wheelIsInverted);
+    wheelConfig.idleMode(ClawConstants.wheelIdleMode);
 
     thru = rotateSparkMax.getAbsoluteEncoder();
 
     rotatePID = rotateSparkMax.getClosedLoopController();
 
-    digitalInput = new DigitalInput(WristConstants.digitalinputport);
 
   }
 
@@ -61,11 +57,11 @@ public class ClawSS extends SubsystemBase {
   }
 
   public void goToStraight() {
-    rotatePID.setReference(WristConstants.straightPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+    rotatePID.setReference(ClawConstants.straightPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   public void goToAngled() {
-    rotatePID.setReference(WristConstants.angledPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+    rotatePID.setReference(ClawConstants.angledPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   public void stopWrist() {
@@ -73,22 +69,19 @@ public class ClawSS extends SubsystemBase {
   }
 
   public void turnWheel() {
-    wheelSparkMax.set(WristConstants.turnWheelPercent);
+    wheelSparkMax.set(ClawConstants.turnWheelPercent);
   }
 
   public void reverseWheel() {
-    wheelSparkMax.set(WristConstants.reverseWheelPercent);
+    wheelSparkMax.set(ClawConstants.reverseWheelPercent);
   }
 
-  public boolean hasSomething() {
-    return digitalInput.get();
-  }
+  
 
   @Override
   public void periodic() {
 
     SmartDashboard.putNumber("Position", getRotatePosition());
-    SmartDashboard.putBoolean("Has something?", hasSomething());
 
   }
 }
