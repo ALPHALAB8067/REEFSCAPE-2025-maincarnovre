@@ -57,7 +57,7 @@ public final class Constants
     public static final double ExtensionPouceParTour = 4.92 ;
     public static final double WristdegresParTour = 76.5;
 
-    public static final double RotationEncoderOffSet = 4.4;
+    public static final double RotationEncoderOffSet = 0;
     public static final double ExtensionEncoderOffSet = 0;
     public static final double WristEncoderOffSet = -100;
     public static final double WristLength = 20.2;

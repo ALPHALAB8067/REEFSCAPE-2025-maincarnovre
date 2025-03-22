@@ -48,6 +48,12 @@ public class goToL4 extends Command {
     if (mCurrent == PositionsDictionnary.mPositionCoralStation){
       mArm_SS.S1B(mTarget);
     }
+    if (mCurrent == PositionsDictionnary.mPositionAlgae){
+      mArm_SS.S1B(mTarget);
+    }
+    if (mCurrent == PositionsDictionnary.mPositionIntake){
+      mArm_SS.S1B(mTarget);
+    }
   }
 
   // Called once the command ends or is interrupted.
