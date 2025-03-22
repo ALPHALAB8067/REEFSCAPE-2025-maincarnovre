@@ -479,8 +479,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
        */
     } else
     {
-     
-      
+
     
       //Button BOX
     //  if(SwerveSubsystem.isRedAlliance() == true) { 

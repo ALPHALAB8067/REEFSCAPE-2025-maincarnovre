@@ -404,7 +404,7 @@ public class SwerveSubsystem extends SubsystemBase
 
   public double XPose(double X)
    {
-    PIDController TranslationPIDX = new PIDController(1,0.00,0);
+    PIDController TranslationPIDX = new PIDController(2,0.0001,0);
     
     double XPose = swerveDrive.getPose().getX();
     double XPoseValue = TranslationPIDX.calculate(XPose, X);
@@ -413,7 +413,7 @@ public class SwerveSubsystem extends SubsystemBase
 
   public double YPose(double Y)
    {
-  PIDController TranslationPIDY = new PIDController(0.5,0.00,0) ;
+  PIDController TranslationPIDY = new PIDController(2,0.0001,0) ;
   double YPose = swerveDrive.getPose().getY();
 
     double YPoseValue = TranslationPIDY.calculate(YPose, Y);
@@ -423,7 +423,7 @@ public class SwerveSubsystem extends SubsystemBase
 
   public Double RotPose(double Rot)
    {
-  PIDController TurnPID = new PIDController(0.5,0,0) ;
+  PIDController TurnPID = new PIDController(1.7,0.0001,0) ;
     double RotationPose = swerveDrive.getPose().getRotation().getRadians();
 
     double RotPoseValue = TurnPID.calculate(RotationPose, Math.toRadians(Rot));
