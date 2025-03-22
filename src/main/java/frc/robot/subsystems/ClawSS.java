@@ -53,7 +53,7 @@ public class ClawSS extends SubsystemBase {
   }
 
   public double getRotatePosition() {
-    return 360 * thru.getPosition();
+    return 3.60 * thru.getPosition();
   }
 
   public void goToStraight() {
@@ -76,6 +76,9 @@ public class ClawSS extends SubsystemBase {
     wheelSparkMax.set(ClawConstants.reverseWheelPercent);
   }
 
+  public void stop() {
+    wheelSparkMax.stopMotor();
+  }
   
 
   @Override

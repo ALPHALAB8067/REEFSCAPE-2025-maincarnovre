@@ -30,10 +30,7 @@ public class ClawGoStraight extends Command {
   @Override
   public boolean isFinished() {
 
-    if(clawss.getRotatePosition() == ClawConstants.straightPosition) {
-      return true;
-    } else 
-      return false;
+    return false;
 
   }
 }

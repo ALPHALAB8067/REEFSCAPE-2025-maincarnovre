@@ -19,11 +19,11 @@ public final class ClawConstants {
   
   public static final int rotateSparkMaxPort = 18;
 
-  public static final boolean rotateIsInverted = false;
-  public static final double positionConversionFactor = 8192/360;
+  public static final boolean rotateIsInverted = true;
+  public static final double positionConversionFactor = 3.60;
   public static final IdleMode rotateIdleMode = IdleMode.kCoast;
   public static final FeedbackSensor feedbacksensor = FeedbackSensor.kAbsoluteEncoder;
-  public static final double pValue = 0;
+  public static final double pValue = 0.05;
   public static final double iValue = 0;
   public static final double dValue = 0;
 
@@ -32,9 +32,6 @@ public final class ClawConstants {
   public static final IdleMode wheelIdleMode = IdleMode.kCoast;
   public static final double straightPosition = 0.0;
   public static final double angledPosition = 90.0;
-  public static final double turnWheelPercent = 0.5;
+  public static final double turnWheelPercent = 0.35;
   public static final double reverseWheelPercent = -turnWheelPercent;
-
-  public static final int digitalinputport = 0;
-
 }

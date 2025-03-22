@@ -8,15 +8,12 @@ import frc.robot.subsystems.IntakeSS;
 public class intakeUpCMD extends Command {
 
   private final IntakeSS intakeSS; 
-  private final ARM_SS arm_SS;
-  private final double ArmMinimumThreshold = 0; 
+  
 
-  public intakeUpCMD(IntakeSS pIntakeSS, ARM_SS pArmSS) {
+  public intakeUpCMD(IntakeSS pIntakeSS) {
 
     intakeSS = pIntakeSS;
-    arm_SS = pArmSS;
     
-
   }
 
   @Override

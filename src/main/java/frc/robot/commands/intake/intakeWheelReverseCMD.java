@@ -20,7 +20,9 @@ public class intakeWheelReverseCMD extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intakeSS.wheelStop();
+  }
 
   @Override
   public boolean isFinished() {

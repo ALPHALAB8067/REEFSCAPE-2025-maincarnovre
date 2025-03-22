@@ -30,10 +30,7 @@ public class ClawGoAngledCMD extends Command {
   @Override
   public boolean isFinished() {
     
-    if(clawss.getRotatePosition() == ClawConstants.angledPosition) {
-      return true;
-    } else 
-      return false;
+    return false;
     
   }
 }

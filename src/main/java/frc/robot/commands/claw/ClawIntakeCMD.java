@@ -22,7 +22,9 @@ public class ClawIntakeCMD extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    clawss.stop();
+  }
 
   @Override
   public boolean isFinished() {

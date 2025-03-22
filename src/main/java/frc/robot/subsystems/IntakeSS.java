@@ -33,7 +33,7 @@ public class IntakeSS extends SubsystemBase {
     rightSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, intakeConstants.rightSolenoidFWDPort, intakeConstants.rightSolenoidRVRSPort);
     
     compressor = new Compressor(PneumaticsModuleType.REVPH);
-    compressor.enableAnalog(105, 120);
+    compressor.enableAnalog(40, 65);
 
     wheelSparkMax = new SparkMax(intakeConstants.wheelSparkMaxPort, MotorType.kBrushless);
 
@@ -53,6 +53,8 @@ public class IntakeSS extends SubsystemBase {
     rightSolenoid.set(Value.kReverse);
   }
 
+ 
+
   public Value getLeftIntakeState() {
     return leftSolenoid.get();
   }
@@ -61,9 +63,13 @@ public class IntakeSS extends SubsystemBase {
     return rightSolenoid.get();
   }
 
-  public void stop() {
+  public void solStop() {
     leftSolenoid.set(Value.kOff);
     rightSolenoid.set(Value.kOff);
+  }
+
+  public void wheelStop() {
+    wheelSparkMax.stopMotor();
   }
 
   public void wheelTurn() {

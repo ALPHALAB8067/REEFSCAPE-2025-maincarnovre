@@ -25,7 +25,7 @@ public class WristGoToPosL4 extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mArm_SS.setWristPosition(45);
+    mArm_SS.setWristPosition(15);
   }
 
   // Called once the command ends or is interrupted.

@@ -27,7 +27,18 @@ import frc.robot.commands.goToL2;
 import frc.robot.commands.goToL3;
 import frc.robot.commands.goToL4;
 import frc.robot.commands.goToRest;
+import frc.robot.commands.claw.ClawExitCMD;
+import frc.robot.commands.claw.ClawGoAngledCMD;
+import frc.robot.commands.claw.ClawGoStraight;
+import frc.robot.commands.claw.ClawIntakeCMD;
+import frc.robot.commands.intake.intakeDownCMD;
+import frc.robot.commands.intake.intakeUpCMD;
+import frc.robot.commands.intake.intakeWheelCMD;
+import frc.robot.commands.intake.intakeWheelReverseCMD;
+import frc.robot.commands.wrist.WristGoToPosL4;
 import frc.robot.subsystems.ARM_SS;
+import frc.robot.subsystems.ClawSS;
+import frc.robot.subsystems.IntakeSS;
 /*
 import frc.robot.commandgroups.IntakeInCMD;
 import frc.robot.commandgroups.IntakeOutCMD;
@@ -74,10 +85,22 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer
 {
+
+  private final ClawSS mClawSS = new ClawSS();
+  private final ClawExitCMD mClawExitCMD = new ClawExitCMD(mClawSS);
+  private final ClawGoAngledCMD mClawGoAngledCMD = new ClawGoAngledCMD(mClawSS);
+  private final ClawGoStraight mClawGoStraight = new ClawGoStraight(mClawSS);
+  private final ClawIntakeCMD mClawIntakeCMD = new ClawIntakeCMD(mClawSS);
+
+  private final IntakeSS mIntakeSS = new IntakeSS();
+  private final intakeDownCMD mIntakeDownCMD = new intakeDownCMD(mIntakeSS);
+  private final intakeUpCMD mIntakeUpCMD = new intakeUpCMD(mIntakeSS);
+  private final intakeWheelCMD mIntakeWheelCMD = new intakeWheelCMD(mIntakeSS);
+  private final intakeWheelReverseCMD mIntakeWheelReverseCMD = new intakeWheelReverseCMD(mIntakeSS);
+
 /*
     //subystem declaration
     private final ClawSS mClawSS = new ClawSS();
-    private final IntakeSS mIntakeSS = new IntakeSS();
     private final ARM_SS mArm_SS = new ARM_SS();
     
     //claw command declaration
@@ -87,10 +110,7 @@ public class RobotContainer
     private final ClawIntakeCMD mClawIntakeCMD = new ClawIntakeCMD(mClawSS);
 
     //intake command declaration
-    private final intakeDownCMD mIntakeDownCMD = new intakeDownCMD(mIntakeSS);
-    private final intakeUpCMD mIntakeUpCMD = new intakeUpCMD(mIntakeSS);
-    private final intakeWheelCMD mIntakeWheelCMD = new intakeWheelCMD(mIntakeSS);
-    private final intakeWheelReverseCMD mIntakeWheelReverseCMD = new intakeWheelReverseCMD(mIntakeSS);
+    
 
     //arm position declaration
     private final goToL1 mGoToL1 = new goToL1(mArm_SS);
@@ -143,6 +163,15 @@ Trigger Sbtn7 = new Trigger(()->mButtonBoxPT2.getRawButton(7));
 Trigger Sbtn8 = new Trigger(()->mButtonBoxPT2.getRawButton(8));
 Trigger Sbtn12 = new Trigger(()->mButtonBoxPT2.getRawButton(12));
 
+Trigger Sbtn11 = new Trigger(()->mButtonBoxPT2.getRawButton(11));
+
+Trigger Sbtn10 = new Trigger(()->mButtonBoxPT2.getRawButton(10));
+
+Trigger Sbtn4 = new Trigger(()->mButtonBoxPT2.getRawButton(4));
+
+Trigger Sbtn5 = new Trigger(()->mButtonBoxPT2.getRawButton(5));
+
+
 
 
 private final ARM_SS mArm_SS = new ARM_SS();
@@ -152,6 +181,10 @@ private final goToL2 mGoToL2 = new goToL2(mArm_SS);
 private final goToL1 mGoToL1 = new goToL1(mArm_SS);
 private final goToL4 mGoToL4 = new goToL4(mArm_SS);
 private final goToCoralStation mgotocoral = new goToCoralStation(mArm_SS);
+
+
+private final WristGoToPosL4 mGoToPosL4 = new WristGoToPosL4(mArm_SS);
+
 
 
 
@@ -401,9 +434,20 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     btn5.whileTrue(mGoToL4);
     Sbtn8.whileTrue(mGoToRest);
     btn7.whileTrue(mGoToL2);
-    Sbtn8.whileTrue(mGoToL1);
-    Sbtn8.whileTrue(mGoToL1);
-    Sbtn12.whileTrue(mgotocoral);
+    btn12.whileTrue(mGoToL1);
+
+    Sbtn12.whileTrue(mGoToPosL4);
+    
+    Sbtn11.whileTrue(mClawGoStraight);
+    Sbtn4.whileTrue(mClawGoAngledCMD);
+    Sbtn10.whileTrue(mClawIntakeCMD);
+
+    Sbtn1.whileTrue(mIntakeDownCMD);
+    Sbtn2.whileTrue(mIntakeUpCMD);
+    Sbtn5.whileTrue(mIntakeWheelCMD);
+
+
+
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
@@ -483,14 +527,18 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     
       //Button BOX
     //  if(SwerveSubsystem.isRedAlliance() == true) { 
+     
+    /*
       Sbtn8.whileTrue(mGoToRest);
       btn12.whileTrue(mGoToL1);
       btn7.whileTrue(mGoToL2);
       btn3.whileTrue(mGoToL3);
       btn5.whileTrue(mGoToL4);
+       */
 
-        Sbtn1.whileTrue(MoveToGR);
-        Sbtn2.whileTrue(MoveToHR);
+        //Sbtn1.whileTrue(MoveToGR);
+        //Sbtn2.whileTrue(MoveToHR);
+
         Sbtn3.whileTrue(MoveToIR);
         Sbtn6.whileTrue(MoveToER);
         Sbtn7.whileTrue(MoveToKR);
