@@ -98,6 +98,8 @@ public class RobotContainer
   private final intakeWheelCMD mIntakeWheelCMD = new intakeWheelCMD(mIntakeSS);
   private final intakeWheelReverseCMD mIntakeWheelReverseCMD = new intakeWheelReverseCMD(mIntakeSS);
 
+
+
 /*
     //subystem declaration
     private final ClawSS mClawSS = new ClawSS();
@@ -435,6 +437,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     Sbtn8.whileTrue(mGoToRest);
     btn7.whileTrue(mGoToL2);
     btn12.whileTrue(mGoToL1);
+    btn6.whileTrue(mgotocoral);
 
     Sbtn12.whileTrue(mGoToPosL4);
     
@@ -545,7 +548,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn1.whileTrue(MoveToDR);
         btn2.whileTrue(MoveToBR);
         btn4.whileTrue(MoveToLR);
-        btn6.whileTrue(MoveToJR);
+        //btn6.whileTrue(MoveToJR);
         btn8.whileTrue(MoveToFR);
         btn10.whileTrue(MoveToCR);
         btn11.whileTrue(MoveToAR);

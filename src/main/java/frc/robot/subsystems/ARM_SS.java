@@ -136,7 +136,7 @@ ARM_SS extends SubsystemBase {
         .inverted(false);
       mWristConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-      .pid(0.028,0,0,ClosedLoopSlot.kSlot0)
+      .pid(0.008,0,0,ClosedLoopSlot.kSlot0)
       .minOutput(-0.7)
       .maxOutput(0.7);
     mWristMotor.configure(mWristConfig,ResetMode.kNoResetSafeParameters,PersistMode.kNoPersistParameters);
