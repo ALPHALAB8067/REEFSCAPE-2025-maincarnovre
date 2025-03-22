@@ -11,12 +11,12 @@ import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class goToL3 extends Command {
+public class goToAlgae extends Command {
   ARM_SS mArm_SS;
-  private PositionType_SS mTarget = PositionsDictionnary.mPositionL3;
+  private PositionType_SS mTarget = PositionsDictionnary.mPositionAlgae;
   PositionType_SS mCurrent;
   /** Creates a new goToRest. */
-  public goToL3(ARM_SS pArm_SS) {
+  public goToAlgae(ARM_SS pArm_SS) {
     mArm_SS = pArm_SS;
     
   }
@@ -29,18 +29,17 @@ public class goToL3 extends Command {
   @Override
   public void execute() {
     mCurrent = mArm_SS.whereAmI();
-    if(mCurrent == PositionsDictionnary.mPositionRest){  
+    if(mCurrent == PositionsDictionnary.mPositionRest){ 
       mArm_SS.S1B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL1){
-      mArm_SS.S2B(mTarget);
+      mArm_SS.S1B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL2){
-     mArm_SS.S1A(mTarget);
+      mArm_SS.S1B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL3){
-      //does nothing 
-      mArm_SS.S1A(mTarget);
+      mArm_SS.S1B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL4){
       mArm_SS.S3B(mTarget);
@@ -49,10 +48,11 @@ public class goToL3 extends Command {
       mArm_SS.S3B(mTarget);
     }
     if (mCurrent == PositionsDictionnary.mPositionAlgae){
-      mArm_SS.S2B(mTarget);
+      //does nothing
+      mArm_SS.S1A(mTarget);
     }
     if (mCurrent == PositionsDictionnary.mPositionIntake){
-      mArm_SS.S1A(mTarget);
+      mArm_SS.S1B(mTarget);
     }
   }
 

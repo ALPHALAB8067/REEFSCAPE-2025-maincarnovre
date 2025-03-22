@@ -33,20 +33,26 @@ public class goToL2 extends Command {
       mArm_SS.S1B(mTarget);   
     }
     if(mCurrent == PositionsDictionnary.mPositionL1){
-      mArm_SS.S3(mTarget);
+      mArm_SS.S3B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL2){
      //does nothing 
      mArm_SS.S1A(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL3){
-      mArm_SS.S3(mTarget);
+      mArm_SS.S3B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL4){
-      mArm_SS.S3(mTarget);
+      mArm_SS.S3B(mTarget);
     }
     if (mCurrent == PositionsDictionnary.mPositionCoralStation){
-      mArm_SS.S3(mTarget);
+      mArm_SS.S3B(mTarget);
+    }
+    if (mCurrent == PositionsDictionnary.mPositionAlgae){
+      mArm_SS.S3B(mTarget);
+    }
+    if (mCurrent == PositionsDictionnary.mPositionIntake){
+      mArm_SS.S3B(mTarget);
     }
   }
 

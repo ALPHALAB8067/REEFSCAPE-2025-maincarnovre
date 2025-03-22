@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.opencv.core.Mat;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
@@ -50,7 +52,6 @@ ARM_SS extends SubsystemBase {
   private final SparkMaxConfig mFollowExtensionConfig;
   private final SparkMaxConfig mWristConfig;
 
-  private boolean currentlyRunning = false;
   public  boolean done = false;
   public PositionType_SS currentPostion = PositionsDictionnary.mPositionRest;
 
@@ -232,14 +233,14 @@ ARM_SS extends SubsystemBase {
       mArmAngle = getArmPosition();
       mArmLength = getExtensionPosition();
       mWristAngle = getWristPosition();
-      firstSegmentX = mArmLength * Math.cos(mArmAngle);
+      firstSegmentX = mArmLength * Math.cos(Math.toRadians(mArmAngle));
       SmartDashboard.putNumber("firstSegmentX", firstSegmentX);
-      firstSegmentY = mArmLength * Math.sin(mArmAngle);
+      firstSegmentY = mArmLength * Math.sin(Math.toRadians(mArmAngle));
       SmartDashboard.putNumber("firstSegmentY", firstSegmentY);
                         //need to change this value curently 0
-      secondSegmentX = Constants.ArmConstants.WristLength * Math.cos(mWristAngle);
+      secondSegmentX = Constants.ArmConstants.WristLength * Math.cos(Math.toRadians(mWristAngle));
       SmartDashboard.putNumber("secondSegmentX", secondSegmentX);
-      secondSegmentY = Constants.ArmConstants.WristLength * Math.sin(mWristAngle);
+      secondSegmentY = Constants.ArmConstants.WristLength * Math.sin(Math.toRadians(mWristAngle));
       SmartDashboard.putNumber("secondSegmentY", secondSegmentY);
       finalX = firstSegmentX + secondSegmentX;
       SmartDashboard.putNumber("finalX", finalX);
@@ -283,31 +284,64 @@ ARM_SS extends SubsystemBase {
     //STRATEGIES
         //arm -> wrist -> longueur 
       public void S1A(PositionType_SS pPosition){
-        SmartDashboard.putString("order","arm -> wrist -> longueur");
-        SmartDashboard.putString("target",pPosition.name);
-        SmartDashboard.putString("strat","S1A");
+        
+        SmartDashboard.putString("order", "arm -> wrist -> longueur");
+        SmartDashboard.putString("target", pPosition.name);
+        SmartDashboard.putString("strat", "S1A");
 
-        if(!isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && !isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && !isWristInPosition(pPosition.wrist, pPosition.wristTolerance)){
-          SmartDashboard.putString("step"," arm -> wrist");
-          mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-        }
-
-           if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist,pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)){
-            SmartDashboard.putString("step"," done");
-            done = true;
-            }
-             if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance)&& !isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)){
-              SmartDashboard.putString("step"," lenght -> done");
-              mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-              }
-               if(isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && !isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && !isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)){
-                SmartDashboard.putString("step"," wrist -> lenght");
-                mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-                }
-    
+        //is everything in position
+        if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+          SmartDashboard.putString("step", "done");
+          done = true;
           }
+          //if arm and wrist are in position, start pPosition.armLength
+          else 
+          if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance)) {
+              SmartDashboard.putString("step", "length -> done");
+              mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+              }
+              //if only arm is in position, start wrist
+              else 
+              if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance)) {
+                  SmartDashboard.putString("step", "wrist -> length");
+                  mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                  }
+                  //if nothing is in position, start arm
+                  else {
+                      SmartDashboard.putString("step", "arm -> wrist");
+                      mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                      }
+      }
         
 
+        //armAngle -> wrist + longueur
+      public void S1B(PositionType_SS pPosition){
+        
+        SmartDashboard.putString("order","armAngle -> wrist + longueur");  
+        SmartDashboard.putString("target",pPosition.name);
+        SmartDashboard.putString("strat","S1B");
+
+        //is everything in position
+        if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist,pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)){
+          SmartDashboard.putString("step","done");
+          done = true;
+          }
+          //if arm is in position start wrist and pPosition.armLength
+          else 
+          if(isArmInPosition(pPosition.armAngle, pPosition.armTolerance)) {
+              SmartDashboard.putString("step"," wrist + extension -> done");
+              mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+              mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+              }
+              //if nothing in position is in position start arm
+              else {
+                    SmartDashboard.putString("step"," arm -> wrist + extension");
+                    mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+                    }
+            
+            }
+     
+ /*          
         //armAngle -> wrist + longueur
       public void S1B(PositionType_SS pPosition){
         
@@ -332,86 +366,143 @@ ARM_SS extends SubsystemBase {
                 }
             }
                 
-            
-          
-        //wrist -> longueur + armAngle
-      public void S2B(PositionType_SS pPosition){
-        SmartDashboard.putString("order","wrist -> longueur + armAngle"); 
-        SmartDashboard.putString("target",pPosition.name);
-        SmartDashboard.putString("strat","S2B");
- 
-        if(!isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && !isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && !isWristInPosition(pPosition.wrist, pPosition.wristTolerance)){
-          //start wrist
-          SmartDashboard.putString("step"," wrist -> arm + extension");
-          mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-        }
-          //is everything in position
-          if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist,pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)){
-            SmartDashboard.putString("step","done");
-            done = true;
-            } 
-            // if wrist is in position start pPosition.armLength and armAngle
-             if(isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && !isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && !isArmInPosition(pPosition.armAngle, pPosition.armTolerance)){
-            SmartDashboard.putString("step"," arm + extension -> done");
-            mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-            mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-            }
-        }
-      
-
-        //longueur + wrist -> armAngle
-      public void S3(PositionType_SS pPosition){
-        SmartDashboard.putString("order","longueur + wrist -> armAngle");  
-        SmartDashboard.putString("target",pPosition.name);
-        SmartDashboard.putString("strat","S3");
-
-        if(!isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && !isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && !isWristInPosition(pPosition.wrist, pPosition.wristTolerance)){
-          SmartDashboard.putString("step"," wrist + extension -> arm ");
-
-            mExtensionPIDController.setReference(pPosition.armLength , ControlType.kPosition,ClosedLoopSlot.kSlot0);
-            mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+    */        
+        //wrist -> longueur -> armAngle 
+      public void S2A(PositionType_SS pPosition){
+        
+        SmartDashboard.putString("order", "wrist -> longueur -> armAngle");  
+        SmartDashboard.putString("target", pPosition.name);
+        SmartDashboard.putString("strat", "S2A");
+        
+        //is everything in position
+        if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+          SmartDashboard.putString("step", "done");
+          done = true;
           }
-            //is everything in position
-            if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist,pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)){
-              SmartDashboard.putString("step","done");
-              done = true;
+          //if wrist and length are in position, start arm
+          else if (isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+              SmartDashboard.putString("step", "arm -> done");
+              mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
               }
-               if(isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance)&& !isArmInPosition(pPosition.armAngle, pPosition.armTolerance)){
-                SmartDashboard.putString("step"," arm -> done");
-                mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-                }
-             }
-              
+              //if only wrist is in position, start length
+              else if (isWristInPosition(pPosition.wrist, pPosition.wristTolerance)) {
+                  SmartDashboard.putString("step", "extension -> arm");
+                  mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                  }
+                  //if nothing is in position, start wrist
+                  else {
+                      SmartDashboard.putString("step", "wrist -> extension");
+                      mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                      }
+      }
+
+      //wrist -> longueur + armAngle
+      public void S2B(PositionType_SS pPosition){
+        
+        SmartDashboard.putString("order", "wrist -> longueur + armAngle"); 
+        SmartDashboard.putString("target", pPosition.name);
+        SmartDashboard.putString("strat", "S2B");
+        
+        //is everything in position
+        if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+          SmartDashboard.putString("step", "done");
+          done = true;
+          } 
+          //if wrist is in position, start arm and length
+          else if (isWristInPosition(pPosition.wrist, pPosition.wristTolerance)) {
+              SmartDashboard.putString("step", "arm + extension -> done");
+              mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+              mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+              }
+              //if nothing is in position, start wrist
+              else {
+                  SmartDashboard.putString("step", "wrist -> arm + extension");
+                  mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                  }
+      }
+        
+        //longueur -> wrist -> armAngle
+        public void S3A(PositionType_SS pPosition){
+        
+        SmartDashboard.putString("order", "longueur + wrist -> armAngle");  
+        SmartDashboard.putString("target", pPosition.name);
+        SmartDashboard.putString("strat", "S3A");
+
+        //is everything in position
+        if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+          SmartDashboard.putString("step", "done");
+          done = true;
+          }
+          //if length and wrist are in position, start arm
+          else if (isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance)) {
+              SmartDashboard.putString("step", "arm -> done");
+              mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+              }
+              //if only length is in position, start wrist
+              else if (isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+                  SmartDashboard.putString("step", "wrist -> arm");
+                  mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                  }
+                  //if nothing is in position, start length
+                  else {
+                      SmartDashboard.putString("step", "extension -> wrist");
+                      mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                      }
+      }
+
+      //longueur + wrist -> armAngle
+      public void S3B(PositionType_SS pPosition){
+        
+        SmartDashboard.putString("order", "longueur + wrist -> armAngle");  
+        SmartDashboard.putString("target", pPosition.name);
+        SmartDashboard.putString("strat", "S3B");
+
+        //is everything in position
+        if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+          SmartDashboard.putString("step", "done");
+          done = true;
+          }
+          //if length and wrist are in position, start arm
+          else if (isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance)) {
+              SmartDashboard.putString("step", "arm -> done");
+              mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+              }
+              //if nothing is in position, start length and wrist
+              else {
+                  SmartDashboard.putString("step", "wrist + extension -> arm");
+                  mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                  mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                  }
+      }
 
         //armAngle -> longueur -> wrist
       public void S4(PositionType_SS pPosition){
-        SmartDashboard.putString("order","armAngle -> longueur -> wrist"); 
-        SmartDashboard.putString("target",pPosition.name);
-        SmartDashboard.putString("strat","S4");
- 
         
-        if(!isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && !isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance) && !isWristInPosition(pPosition.wrist, pPosition.wristTolerance)){
-          SmartDashboard.putString("step"," arm -> extension ");
+        SmartDashboard.putString("order", "armAngle -> longueur -> wrist"); 
+        SmartDashboard.putString("target", pPosition.name);
+        SmartDashboard.putString("strat", "S4");
 
-          mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-        }
-         if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist,pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)){
-            SmartDashboard.putString("step","done");
-
-            done = true;
-            }
-             if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)&& !isWristInPosition(pPosition.wrist, pPosition.wristTolerance)){
-              SmartDashboard.putString("step","wrist -> done");
-
-              mWristPIDController.setReference(pPosition.armLength, ControlType.kPosition,ClosedLoopSlot.kSlot0);
-              }
-               if(isArmInPosition(pPosition.armAngle, pPosition.armTolerance)){
-                SmartDashboard.putString("step","extension -> wrist");
-
-                mExtensionPIDController.setReference(pPosition.armLength , ControlType.kPosition,ClosedLoopSlot.kSlot0);
-                }
-    
+        //is everything in position
+        if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isWristInPosition(pPosition.wrist, pPosition.wristTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+          SmartDashboard.putString("step", "done");
+          done = true;
           }
+          //if arm and length are in position, start wrist
+          else if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance) && isLenghtInPostition(pPosition.armLength, pPosition.lenghtTolerance)) {
+              SmartDashboard.putString("step", "wrist -> done");
+              mWristPIDController.setReference(pPosition.wrist + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+              }
+              //if only arm is in position, start length
+              else if (isArmInPosition(pPosition.armAngle, pPosition.armTolerance)) {
+                  SmartDashboard.putString("step", "extension -> wrist");
+                  mExtensionPIDController.setReference(pPosition.armLength, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                  }
+                  //if nothing is in position, start arm
+                  else {
+                      SmartDashboard.putString("step", "arm -> extension");
+                      mArmPIDControler.setReference(pPosition.armAngle + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                      }
+      }
         
       
     //for setting and getting hardcoded positions
