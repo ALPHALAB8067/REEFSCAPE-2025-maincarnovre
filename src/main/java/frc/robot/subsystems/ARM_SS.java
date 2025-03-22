@@ -148,9 +148,7 @@ ARM_SS extends SubsystemBase {
     mArmPIDControler = mLeadBase.getClosedLoopController();
     mWristPIDController = mWristMotor.getClosedLoopController();
 
-    SmartDashboard.putNumber("extensionSetpoint", 0);
-    SmartDashboard.putNumber("rotationSetpoint", 0);
-    SmartDashboard.putNumber("WristSetpoint", 0);
+
 
   }
 
@@ -206,12 +204,15 @@ ARM_SS extends SubsystemBase {
         */
     //setters
     public void setArmPosition(double pPosition){
+      SmartDashboard.putNumber("arm setpoint",pPosition);
       mArmPIDControler.setReference(pPosition + Constants.ArmConstants.RotationEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
     }
     public void setExtensionPosition(double pPosition){
+      SmartDashboard.putNumber("ext setpoint",pPosition);
       mExtensionPIDController.setReference(pPosition, ControlType.kPosition,ClosedLoopSlot.kSlot0);
     }
     public void setWristPosition(double pPosition){
+      SmartDashboard.putNumber("wrist setpoint",pPosition);
       mWristPIDController.setReference(pPosition + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
     }
 

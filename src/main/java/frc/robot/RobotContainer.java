@@ -483,6 +483,12 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     
       //Button BOX
     //  if(SwerveSubsystem.isRedAlliance() == true) { 
+      Sbtn8.whileTrue(mGoToRest);
+      btn12.whileTrue(mGoToL1);
+      btn7.whileTrue(mGoToL2);
+      btn3.whileTrue(mGoToL3);
+      btn5.whileTrue(mGoToL4);
+
         Sbtn1.whileTrue(MoveToGR);
         Sbtn2.whileTrue(MoveToHR);
         Sbtn3.whileTrue(MoveToIR);

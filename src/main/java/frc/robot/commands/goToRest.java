@@ -40,10 +40,12 @@ public class goToRest extends Command {
       mArm_SS.S1B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL3){
-      mArm_SS.S3B(mTarget);
+      //S3B
+      mArm_SS.S3A(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL4){
-      mArm_SS.S3B(mTarget);
+      //S3B
+      mArm_SS.S3A(mTarget);
     }
     if (mCurrent == PositionsDictionnary.mPositionCoralStation){
       mArm_SS.S2B(mTarget);
