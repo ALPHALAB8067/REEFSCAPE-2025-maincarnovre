@@ -35,6 +35,6 @@ public class WristGoToPosL4 extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return mArm_SS.isWristInPosition(-70,5);
   }
 }

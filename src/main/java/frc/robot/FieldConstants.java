@@ -26,7 +26,7 @@ public final class FieldConstants
 {
    public final class RedAlliancePoses{
 
-      public static Pose2d PoteauAR = new Pose2d(14.363, 3.815, Rotation2d.fromDegrees(180));
+      public static Pose2d PoteauAR = new Pose2d(13.574, 2.809, Rotation2d.fromDegrees(180));
       public static Pose2d PoteauBR = new Pose2d(14.363, 4.250, Rotation2d.fromDegrees(180));
       public static Pose2d PoteauCR = new Pose2d(13.846, 5.045, Rotation2d.fromDegrees(-120));
       public static Pose2d PoteauDR = new Pose2d(13.559, 5.234, Rotation2d.fromDegrees(-120));
@@ -36,7 +36,7 @@ public final class FieldConstants
       public static Pose2d PoteauHR = new Pose2d(11.762, 3.850, Rotation2d.fromDegrees(0));
       public static Pose2d PoteauIR = new Pose2d(12.264, 2.979, Rotation2d.fromDegrees(60));
       public static Pose2d PoteauJR = new Pose2d(12.562, 2.823, Rotation2d.fromDegrees(60));
-      public static Pose2d PoteauKR = new Pose2d(13.573, 2.811, Rotation2d.fromDegrees(120));
+      public static Pose2d PoteauKR = new Pose2d(13.576, 2.804, Rotation2d.fromDegrees(120));
       public static Pose2d PoteauLR = new Pose2d(13.865, 2.980, Rotation2d.fromDegrees(120));
    }
 

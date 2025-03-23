@@ -5,13 +5,44 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
                   "pathName": "Start to J"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GoToL4CMD"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "rogerthat"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "gotocoralstation"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "K to Station"
                 }
               }
             ]
@@ -20,19 +51,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "K to Station"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
+            "waitTime": 3.0
           }
         },
         {
@@ -46,12 +65,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
           }
         }
       ]

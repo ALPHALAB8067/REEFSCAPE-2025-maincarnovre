@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.181,
-        "y": 4.177
+        "x": 13.576,
+        "y": 2.804402698943923
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6715000000055547,
-        "y": 7.437499999999918
+        "x": 13.066500000005556,
+        "y": 6.064902698943831
       },
       "isLocked": false,
       "linkedName": null
@@ -35,20 +35,20 @@
   "globalConstraints": {
     "maxVelocity": 1.5,
     "maxAcceleration": 1.5,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAngularVelocity": 300.0,
+    "maxAngularAcceleration": 400.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 125.00000000000001
+    "rotation": 119.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 119.99999999999999
   },
   "useDefaultConstraints": true
 }

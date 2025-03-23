@@ -392,7 +392,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     DriverStation.silenceJoystickConnectionWarning(true);
 
     //NamedCommands
-/*
+
     NamedCommands.registerCommand("ClawExitCMD", mClawExitCMD);
     NamedCommands.registerCommand("ClawGoAngled", mClawGoAngledCMD);
     NamedCommands.registerCommand("ClawGoStraight", mClawGoStraight);
@@ -408,12 +408,11 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     NamedCommands.registerCommand("GoToL3CMD", mGoToL3);
     NamedCommands.registerCommand("GoToL4CMD", mGoToL4);
     NamedCommands.registerCommand("GoToRest", mGoToRest);
+    NamedCommands.registerCommand("gotocoralstation", mgotocoral);
+    NamedCommands.registerCommand("rogerthat", mGoToPosL4);
 
-    NamedCommands.registerCommand("CloseRobot", mCloseRobotCMD);
-    NamedCommands.registerCommand("IntakeInCMD", mIntakeInCMD);
-    NamedCommands.registerCommand("IntakeOutCMD", mIntakeOutCMD);
-     */
 
+    
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("WhereWeGoing?", autoChooser);
 
