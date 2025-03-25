@@ -21,8 +21,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commandgroups.IntakeInCMD;
-import frc.robot.commandgroups.IntakeOutCMD;
+import frc.robot.commandgroups.CloseRobotCMDG;
+import frc.robot.commandgroups.GetCoralCMDG;
+import frc.robot.commands.dontbreakIntake2;
+import frc.robot.commands.dontbreakWrist;
+import frc.robot.commands.dontbreakintake;
 import frc.robot.commands.goToCoralStation;
 import frc.robot.commands.goToInt;
 import frc.robot.commands.goToL1;
@@ -187,9 +190,13 @@ private final goToL2 mGoToL2 = new goToL2(mArm_SS);
 private final goToL1 mGoToL1 = new goToL1(mArm_SS);
 private final goToL4 mGoToL4 = new goToL4(mArm_SS);
 private final goToCoralStation mgotocoral = new goToCoralStation(mArm_SS);
-private final IntakeOutCMD mIntakeOutCMD = new IntakeOutCMD(mIntakeSS, mArm_SS, mClawSS);
+private final GetCoralCMDG mGetCoralCMDG = new GetCoralCMDG(mIntakeSS, mArm_SS, mClawSS);
 private final goToInt mGoToInt = new goToInt(mArm_SS);
-private final IntakeInCMD mIntakeInCMD = new IntakeInCMD(mIntakeSS, mArm_SS);
+private final CloseRobotCMDG mCloseRobotCMDG = new CloseRobotCMDG(mIntakeSS, mArm_SS);
+private final dontbreakIntake2 mDontbreakIntake2 = new dontbreakIntake2(mArm_SS);
+private final dontbreakWrist mDontbreakWrist = new dontbreakWrist(mArm_SS);
+private final dontbreakintake mDontbreakintake = new dontbreakintake(mArm_SS);
+
 
 private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
 
@@ -440,9 +447,9 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     btn3.whileTrue(mGoToL3);
     btn5.whileTrue(mGoToL4);
     Sbtn8.whileTrue(mGoToRest);
-    btn7.whileTrue(mIntakeInCMD);
-    btn12.whileTrue(mIntakeOutCMD);
-    btn6.whileTrue(mgotocoral);
+    btn7.whileTrue(mGoToL2);
+    btn12.whileTrue(mGoToL1);
+    btn6.whileTrue(mDontbreakWrist);
 
     Sbtn12.whileTrue(mWristToPosL4);
     

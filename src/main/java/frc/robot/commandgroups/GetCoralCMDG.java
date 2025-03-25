@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmSlightlyUp_CMD;
+import frc.robot.commands.dontbreakIntake2;
 import frc.robot.commands.dontbreakintake;
-import frc.robot.commands.dontbreakintake2;
+import frc.robot.commands.dontbreakWrist;
 import frc.robot.commands.dontbreakintakedown;
 import frc.robot.commands.goToInt;
 import frc.robot.commands.claw.ClawGoAngledCMD;
@@ -17,13 +18,13 @@ import frc.robot.subsystems.IntakeSS;
 import frc.robot.commands.intake.intakeDownCMD;
 import frc.robot.commands.intake.intakeWheelCMD;
 
-public class IntakeOutCMD extends SequentialCommandGroup {
+public class GetCoralCMDG extends SequentialCommandGroup {
 
   private final IntakeSS intake;
   private final ARM_SS armss;
   private final ClawSS wrist;
       
-  public IntakeOutCMD(IntakeSS pIntakeSS, ARM_SS pArm_SS, ClawSS pClawSS) {
+  public GetCoralCMDG(IntakeSS pIntakeSS, ARM_SS pArm_SS, ClawSS pClawSS) {
     
     intake = pIntakeSS;
     armss = pArm_SS;
@@ -35,7 +36,7 @@ public class IntakeOutCMD extends SequentialCommandGroup {
       new dontbreakintake(armss),
       new ParallelCommandGroup(
         new ClawGoAngledCMD(wrist),
-        new dontbreakintake2(armss),
+        new dontbreakIntake2(armss),
         new intakeDownCMD(intake)
 
         ),

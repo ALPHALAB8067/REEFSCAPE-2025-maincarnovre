@@ -10,14 +10,14 @@ import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class dontbreakIntake2 extends Command {
+public class dontbreakWrist extends Command {
   /** Creates a new dontbreakintake. */
   private final ARM_SS mArm_SS;
   PositionType_SS mCurrent;
   double startpos;
   private double addedAngle;
 
-  public dontbreakIntake2(ARM_SS pArm_SS) {
+  public dontbreakWrist(ARM_SS pArm_SS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
   }
@@ -33,7 +33,7 @@ public class dontbreakIntake2 extends Command {
   public void execute() {
     mCurrent = mArm_SS.whereAmI();
     if(mCurrent == PositionsDictionnary.mPositionRest) {
-      addedAngle = 30;
+      addedAngle = 0;
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionL1) {
@@ -45,8 +45,8 @@ public class dontbreakIntake2 extends Command {
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      addedAngle = 32;
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+      addedAngle = -9;
+      mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);;
     }
     
 
@@ -65,7 +65,7 @@ public class dontbreakIntake2 extends Command {
   public boolean isFinished() {
     
     //startpos == mArm_SS.GetPositionTypeAngle() - dontbreakintakedown.degree
-    if(mArm_SS.isArmInPosition(mArm_SS.GetPositionTypeAngle() + addedAngle, 2)) {
+    if(mArm_SS.isWristInPosition(mArm_SS.GetPositionTypeWrist() + addedAngle, 4)) {
       return true;
     } else {
       return false;

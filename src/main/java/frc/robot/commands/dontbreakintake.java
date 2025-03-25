@@ -15,6 +15,7 @@ public class dontbreakintake extends Command {
   private final ARM_SS mArm_SS;
   PositionType_SS mCurrent;
   double startpos;
+  private double addedAngle;
 
 
 
@@ -34,16 +35,20 @@ public class dontbreakintake extends Command {
   public void execute() {
     mCurrent = mArm_SS.whereAmI();
     if(mCurrent == PositionsDictionnary.mPositionRest) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      addedAngle = 5;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionL1) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      addedAngle = 20;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionL2) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      addedAngle = 5;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree);
+      addedAngle = 30;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     
 
@@ -62,7 +67,7 @@ public class dontbreakintake extends Command {
   public boolean isFinished() {
     
     //startpos == mArm_SS.GetPositionTypeAngle() - dontbreakintakedown.degree
-    if(mArm_SS.isArmInPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree, 2)) {
+    if(mArm_SS.isArmInPosition(mArm_SS.GetPositionTypeAngle() + addedAngle, 1.5)) {
       return true;
     } else {
       return false;

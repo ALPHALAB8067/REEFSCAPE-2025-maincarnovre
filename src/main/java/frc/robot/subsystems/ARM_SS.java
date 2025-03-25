@@ -233,6 +233,9 @@ ARM_SS extends SubsystemBase {
     public double GetPositionTypeAngle(){
       return whereAmI().armAngle;
     }
+    public double GetPositionTypeWrist(){
+      return whereAmI().wrist;
+    }
     //kinematics
     public void PositionToCoordinates(){
       mArmAngle = getArmPosition();
