@@ -21,7 +21,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commandgroups.IntakeOutCMD;
 import frc.robot.commands.goToCoralStation;
+import frc.robot.commands.goToInt;
 import frc.robot.commands.goToL1;
 import frc.robot.commands.goToL2;
 import frc.robot.commands.goToL3;
@@ -97,7 +99,7 @@ public class RobotContainer
   private final intakeUpCMD mIntakeUpCMD = new intakeUpCMD(mIntakeSS);
   private final intakeWheelCMD mIntakeWheelCMD = new intakeWheelCMD(mIntakeSS);
   private final intakeWheelReverseCMD mIntakeWheelReverseCMD = new intakeWheelReverseCMD(mIntakeSS);
-
+ 
 
 
 /*
@@ -183,9 +185,10 @@ private final goToL2 mGoToL2 = new goToL2(mArm_SS);
 private final goToL1 mGoToL1 = new goToL1(mArm_SS);
 private final goToL4 mGoToL4 = new goToL4(mArm_SS);
 private final goToCoralStation mgotocoral = new goToCoralStation(mArm_SS);
+private final IntakeOutCMD mIntakeOutCMD = new IntakeOutCMD(mIntakeSS, mArm_SS, mClawSS);
+private final goToInt mGoToInt = new goToInt(mArm_SS);
 
-
-private final WristGoToPosL4 mGoToPosL4 = new WristGoToPosL4(mArm_SS);
+private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
 
 
 
@@ -409,7 +412,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     NamedCommands.registerCommand("GoToL4CMD", mGoToL4);
     NamedCommands.registerCommand("GoToRest", mGoToRest);
     NamedCommands.registerCommand("gotocoralstation", mgotocoral);
-    NamedCommands.registerCommand("rogerthat", mGoToPosL4);
+    NamedCommands.registerCommand("rogerthat", mWristToPosL4);
 
 
     
@@ -434,15 +437,16 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     btn3.whileTrue(mGoToL3);
     btn5.whileTrue(mGoToL4);
     Sbtn8.whileTrue(mGoToRest);
-    btn7.whileTrue(mGoToL2);
-    btn12.whileTrue(mGoToL1);
+    btn7.whileTrue(mGoToInt);
+    btn12.whileTrue(mIntakeOutCMD);
     btn6.whileTrue(mgotocoral);
 
-    Sbtn12.whileTrue(mGoToPosL4);
+    Sbtn12.whileTrue(mWristToPosL4);
     
     Sbtn11.whileTrue(mClawGoStraight);
     Sbtn4.whileTrue(mClawGoAngledCMD);
     Sbtn10.whileTrue(mClawIntakeCMD);
+
 
     Sbtn1.whileTrue(mIntakeDownCMD);
     Sbtn2.whileTrue(mIntakeUpCMD);

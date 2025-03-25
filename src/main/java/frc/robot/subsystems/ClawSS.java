@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -21,7 +22,7 @@ public class ClawSS extends SubsystemBase {
   private final SparkMaxConfig rotateConfig;
   private final SparkMaxConfig wheelConfig;
 
-  private final SparkAbsoluteEncoder thru;
+  private final RelativeEncoder thru;
 
   private final SparkClosedLoopController rotatePID;  
 
@@ -45,7 +46,7 @@ public class ClawSS extends SubsystemBase {
     wheelConfig.inverted(ClawConstants.wheelIsInverted);
     wheelConfig.idleMode(ClawConstants.wheelIdleMode);
 
-    thru = rotateSparkMax.getAbsoluteEncoder();
+    thru = rotateSparkMax.getEncoder();
 
     rotatePID = rotateSparkMax.getClosedLoopController();
 
@@ -53,7 +54,7 @@ public class ClawSS extends SubsystemBase {
   }
 
   public double getRotatePosition() {
-    return 3.60 * thru.getPosition();
+    return thru.getPosition();
   }
 
   public void goToStraight() {
@@ -66,6 +67,10 @@ public class ClawSS extends SubsystemBase {
 
   public void stopWrist() {
     rotateSparkMax.set(0);
+  }
+
+  public boolean IsAtAngle(double angle){
+    return (thru.getPosition()>= angle-3 && thru.getPosition()<= angle+3);
   }
 
   public void turnWheel() {
@@ -83,7 +88,7 @@ public class ClawSS extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    SmartDashboard.putBoolean("IsAtAngle", IsAtAngle(90));
     SmartDashboard.putNumber("Position", getRotatePosition());
 
   }

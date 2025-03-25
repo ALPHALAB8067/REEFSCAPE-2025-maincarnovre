@@ -30,11 +30,11 @@ public class goToInt extends Command {
   public void execute() {
     mCurrent = mArm_SS.whereAmI();
     if(mCurrent == PositionsDictionnary.mPositionRest){  
-      mArm_SS.S1B(mTarget);   
+      mArm_SS.S2B(mTarget);   
     }
     if(mCurrent == PositionsDictionnary.mPositionL1){
 
-      mArm_SS.S3B(mTarget);
+      mArm_SS.S3A(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL2){
       mArm_SS.S1B(mTarget);

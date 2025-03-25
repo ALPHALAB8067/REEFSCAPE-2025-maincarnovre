@@ -36,7 +36,7 @@ public final class FieldConstants
       public static Pose2d PoteauHR = new Pose2d(11.762, 3.850, Rotation2d.fromDegrees(0));
       public static Pose2d PoteauIR = new Pose2d(12.264, 2.979, Rotation2d.fromDegrees(60));
       public static Pose2d PoteauJR = new Pose2d(12.562, 2.823, Rotation2d.fromDegrees(60));
-      public static Pose2d PoteauKR = new Pose2d(13.576, 2.804, Rotation2d.fromDegrees(120));
+      public static Pose2d PoteauKR = new Pose2d(13.532, 2.884, Rotation2d.fromDegrees(120));
       public static Pose2d PoteauLR = new Pose2d(13.865, 2.980, Rotation2d.fromDegrees(120));
    }
 

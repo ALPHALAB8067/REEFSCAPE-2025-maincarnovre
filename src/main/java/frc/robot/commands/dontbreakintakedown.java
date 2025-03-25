@@ -15,7 +15,7 @@ public class dontbreakintakedown extends Command {
   private final ARM_SS mArm_SS;
   PositionType_SS mCurrent;
   public static double startpos;
-  public static double degree = 15;
+  public static double degree = 30;
 
 
   public dontbreakintakedown(ARM_SS pArm_SS) {

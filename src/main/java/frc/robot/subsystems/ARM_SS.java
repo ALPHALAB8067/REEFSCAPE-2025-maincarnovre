@@ -136,9 +136,12 @@ ARM_SS extends SubsystemBase {
         .inverted(false);
       mWristConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-      .pid(0.01,0,0,ClosedLoopSlot.kSlot0)
-      .minOutput(-1)
-      .maxOutput(1);
+      .pid(0.006,0.0000021,0.0095,ClosedLoopSlot.kSlot0)
+      .minOutput(-0.6)
+      .maxOutput(0.6);
+      //.maxMotion.maxAcceleration(12000)
+      //.maxVelocity(18000)
+      //.allowedClosedLoopError(1);
     mWristMotor.configure(mWristConfig,ResetMode.kNoResetSafeParameters,PersistMode.kNoPersistParameters);
       
     mExtensionEncoder = mLeadExtension.getAlternateEncoder();
@@ -214,7 +217,7 @@ ARM_SS extends SubsystemBase {
     }
     public void setWristPosition(double pPosition){
       SmartDashboard.putNumber("wrist setpoint",pPosition);
-      mWristPIDController.setReference(pPosition + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
+      mWristPIDController.setReference(pPosition + Constants.ArmConstants.WristEncoderOffSet, ControlType.kMAXMotionPositionControl,ClosedLoopSlot.kSlot0);
     }
 
     //getters
