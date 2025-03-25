@@ -57,12 +57,12 @@ public class ClawSS extends SubsystemBase {
     return thru.getPosition();
   }
 
-  public void goToStraight() {
-    rotatePID.setReference(ClawConstants.straightPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+  public void goToStraight(double position) {
+    rotatePID.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
-  public void goToAngled() {
-    rotatePID.setReference(ClawConstants.angledPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+  public void goToAngled(double position) {
+    rotatePID.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   public void stopWrist() {

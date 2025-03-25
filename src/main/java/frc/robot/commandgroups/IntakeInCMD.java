@@ -1,6 +1,7 @@
 package frc.robot.commandgroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.dontbreakintake;
 import frc.robot.commands.goToRest;
 import frc.robot.commands.intake.intakeUpCMD;
 import frc.robot.subsystems.ARM_SS;
@@ -19,8 +20,10 @@ public class IntakeInCMD extends SequentialCommandGroup {
 
     addCommands(
 
-      new intakeUpCMD(intake),
-      new goToRest(armss)
+      new dontbreakintake(armss)
+      //new goToRest(armss),
+
+     // new intakeUpCMD(intake)
 
 
     );

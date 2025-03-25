@@ -19,7 +19,7 @@ public class ClawGoStraight extends Command {
 
   @Override
   public void execute() {
-    clawss.goToStraight();
+    clawss.goToStraight(0);
   }
 
   @Override

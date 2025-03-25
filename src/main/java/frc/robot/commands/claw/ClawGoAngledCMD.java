@@ -19,7 +19,7 @@ public class ClawGoAngledCMD extends Command {
 
   @Override
   public void execute() {
-    clawss.goToAngled();
+    clawss.goToAngled(90);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class ClawGoAngledCMD extends Command {
   @Override
   public boolean isFinished() {
     
-    return clawss.IsAtAngle(90.0);
+    return false;
     
   }
 }

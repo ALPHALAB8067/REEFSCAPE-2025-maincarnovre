@@ -10,19 +10,15 @@ import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class dontbreakintakedown extends Command {
+public class dontbreakintake2 extends Command {
   /** Creates a new dontbreakintake. */
   private final ARM_SS mArm_SS;
   PositionType_SS mCurrent;
-  public static double startpos;
-  public static double degree = 5;
-  public static double degree2 = 30;
-  public static double degree3 = 47;
+  double startpos;
 
 
 
-
-  public dontbreakintakedown(ARM_SS pArm_SS) {
+  public dontbreakintake2(ARM_SS pArm_SS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
   }
@@ -30,25 +26,26 @@ public class dontbreakintakedown extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    startpos = mArm_SS.GetPositionTypeAngle();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     mCurrent = mArm_SS.whereAmI();
-
     if(mCurrent == PositionsDictionnary.mPositionRest) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree2);
     }
     if(mCurrent == PositionsDictionnary.mPositionL1) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree2);
     }
     if(mCurrent == PositionsDictionnary.mPositionL2) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree2);
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle());
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree2);
     }
+    
 
   
 
@@ -56,17 +53,20 @@ public class dontbreakintakedown extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     
-    if(mArm_SS.isArmInPosition(mArm_SS.GetPositionTypeAngle(), 2)) {
+    //startpos == mArm_SS.GetPositionTypeAngle() - dontbreakintakedown.degree
+    if(mArm_SS.isArmInPosition(mArm_SS.GetPositionTypeAngle() + dontbreakintakedown.degree2, 2)) {
       return true;
     } else {
       return false;
-    }  
-
+    }
+    
   }
 }

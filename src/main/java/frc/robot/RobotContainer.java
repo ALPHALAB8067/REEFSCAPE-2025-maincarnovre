@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commandgroups.IntakeInCMD;
 import frc.robot.commandgroups.IntakeOutCMD;
 import frc.robot.commands.goToCoralStation;
 import frc.robot.commands.goToInt;
@@ -95,11 +96,12 @@ public class RobotContainer
   private final ClawIntakeCMD mClawIntakeCMD = new ClawIntakeCMD(mClawSS);
 
   private final IntakeSS mIntakeSS = new IntakeSS();
+
   private final intakeDownCMD mIntakeDownCMD = new intakeDownCMD(mIntakeSS);
   private final intakeUpCMD mIntakeUpCMD = new intakeUpCMD(mIntakeSS);
   private final intakeWheelCMD mIntakeWheelCMD = new intakeWheelCMD(mIntakeSS);
   private final intakeWheelReverseCMD mIntakeWheelReverseCMD = new intakeWheelReverseCMD(mIntakeSS);
- 
+
 
 
 /*
@@ -187,6 +189,7 @@ private final goToL4 mGoToL4 = new goToL4(mArm_SS);
 private final goToCoralStation mgotocoral = new goToCoralStation(mArm_SS);
 private final IntakeOutCMD mIntakeOutCMD = new IntakeOutCMD(mIntakeSS, mArm_SS, mClawSS);
 private final goToInt mGoToInt = new goToInt(mArm_SS);
+private final IntakeInCMD mIntakeInCMD = new IntakeInCMD(mIntakeSS, mArm_SS);
 
 private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
 
@@ -437,7 +440,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     btn3.whileTrue(mGoToL3);
     btn5.whileTrue(mGoToL4);
     Sbtn8.whileTrue(mGoToRest);
-    btn7.whileTrue(mGoToInt);
+    btn7.whileTrue(mIntakeInCMD);
     btn12.whileTrue(mIntakeOutCMD);
     btn6.whileTrue(mgotocoral);
 
@@ -451,6 +454,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     Sbtn1.whileTrue(mIntakeDownCMD);
     Sbtn2.whileTrue(mIntakeUpCMD);
     Sbtn5.whileTrue(mIntakeWheelCMD);
+    
 
 
 

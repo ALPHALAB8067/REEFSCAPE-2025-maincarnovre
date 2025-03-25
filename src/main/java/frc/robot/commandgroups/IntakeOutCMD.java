@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmSlightlyUp_CMD;
 import frc.robot.commands.dontbreakintake;
+import frc.robot.commands.dontbreakintake2;
 import frc.robot.commands.dontbreakintakedown;
 import frc.robot.commands.goToInt;
 import frc.robot.commands.claw.ClawGoAngledCMD;
@@ -32,12 +33,17 @@ public class IntakeOutCMD extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new dontbreakintake(armss),
-      new ClawGoAngledCMD(wrist),
-      new intakeDownCMD(intake),
-      new WaitCommand(2),
+      new ParallelCommandGroup(
+        new ClawGoAngledCMD(wrist),
+        new dontbreakintake2(armss),
+        new intakeDownCMD(intake)
+
+        ),
+      new WaitCommand(0.5),
       new goToInt(pArm_SS),
       //arm takes coral
       
+    
       new ParallelCommandGroup(
         new ClawIntakeCMD(pClawSS),
         new intakeWheelCMD(pIntakeSS)
