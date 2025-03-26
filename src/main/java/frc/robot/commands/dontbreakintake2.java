@@ -10,14 +10,14 @@ import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class dontbreakIntake2 extends Command {
+public class dontbreakintake2 extends Command {
   /** Creates a new dontbreakintake. */
   private final ARM_SS mArm_SS;
   PositionType_SS mCurrent;
   double startpos;
   private double addedAngle;
 
-  public dontbreakIntake2(ARM_SS pArm_SS) {
+  public dontbreakintake2(ARM_SS pArm_SS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
   }
@@ -37,10 +37,26 @@ public class dontbreakIntake2 extends Command {
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionL1) {
-      addedAngle = 0;
+      addedAngle = 20;
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionL2) {
+      addedAngle = 0;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
+    if(mCurrent == PositionsDictionnary.mPositionL3) {
+      addedAngle = 5;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
+    if(mCurrent == PositionsDictionnary.mPositionL4) {
+      addedAngle = 0;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
+    if(mCurrent == PositionsDictionnary.mPositionCoralStation) {
+      addedAngle = 0;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
+    if(mCurrent == PositionsDictionnary.mPositionAlgae) {
       addedAngle = 0;
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }

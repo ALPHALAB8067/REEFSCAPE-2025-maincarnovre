@@ -217,7 +217,7 @@ ARM_SS extends SubsystemBase {
     }
     public void setWristPosition(double pPosition){
       SmartDashboard.putNumber("wrist setpoint",pPosition);
-      mWristPIDController.setReference(pPosition + Constants.ArmConstants.WristEncoderOffSet, ControlType.kMAXMotionPositionControl,ClosedLoopSlot.kSlot0);
+      mWristPIDController.setReference(pPosition + Constants.ArmConstants.WristEncoderOffSet, ControlType.kPosition,ClosedLoopSlot.kSlot0);
     }
 
     //getters

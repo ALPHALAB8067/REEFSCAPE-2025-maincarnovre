@@ -34,4 +34,5 @@ public final class ClawConstants {
   public static final double angledPosition = 90.0;
   public static final double turnWheelPercent = 0.5;
   public static final double reverseWheelPercent = -turnWheelPercent;
+  public static final double retainCoralPercent = 0.2;
 }
