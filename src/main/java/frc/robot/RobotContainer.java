@@ -41,7 +41,6 @@ import frc.robot.commands.intake.intakeDownCMD;
 import frc.robot.commands.intake.intakeUpCMD;
 import frc.robot.commands.intake.intakeWheelCMD;
 import frc.robot.commands.intake.intakeWheelReverseCMD;
-import frc.robot.commands.wrist.WristGoToPosL4;
 import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.ClawSS;
 import frc.robot.subsystems.IntakeSS;
@@ -198,7 +197,7 @@ private final dontbreakWrist mDontbreakWrist = new dontbreakWrist(mArm_SS);
 private final dontbreakintake mDontbreakintake = new dontbreakintake(mArm_SS);
 
 
-private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
+//private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
 
 
 
@@ -422,7 +421,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     NamedCommands.registerCommand("GoToL4CMD", mGoToL4);
     NamedCommands.registerCommand("GoToRest", mGoToRest);
     NamedCommands.registerCommand("gotocoralstation", mgotocoral);
-    NamedCommands.registerCommand("rogerthat", mWristToPosL4);
+    //NamedCommands.registerCommand("rogerthat", mWristToPosL4);
 
 
     
@@ -449,9 +448,9 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     Sbtn8.whileTrue(mGoToRest);
     btn7.whileTrue(mGoToL2);
     btn12.whileTrue(mGoToL1);
-    btn6.whileTrue(mDontbreakWrist);
+    btn6.whileTrue(mGetCoralCMDG);
 
-    Sbtn12.whileTrue(mWristToPosL4);
+    Sbtn12.whileTrue(mCloseRobotCMDG);
     
     Sbtn11.whileTrue(mClawGoStraight);
     Sbtn4.whileTrue(mClawGoAngledCMD);

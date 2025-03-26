@@ -6,18 +6,18 @@ package frc.robot.commandgroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.goToL3;
-import frc.robot.commands.claw.ClawExitCMD;
+import frc.robot.commands.goToL4;
+import frc.robot.commands.scoreWrist;
 import frc.robot.commands.claw.ClawGoStraight;
 import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.ClawSS;
 
-public class putCoralL3CMD extends SequentialCommandGroup {
+public class putCoralL4CMD extends SequentialCommandGroup {
 
   private final ClawSS clawSS;
   private final ARM_SS armss;
 
-  public putCoralL3CMD(ClawSS pClawSS, ARM_SS pArm_SS) {
+  public putCoralL4CMD(ClawSS pClawSS, ARM_SS pArm_SS) {
     
     clawSS = pClawSS;
     armss = pArm_SS;
@@ -26,11 +26,10 @@ public class putCoralL3CMD extends SequentialCommandGroup {
 
     new ParallelCommandGroup(
       new ClawGoStraight(clawSS),
-      new goToL3(armss)
+      new goToL4(armss)
     ),
 
-    new ClawExitCMD(clawSS).withTimeout(1)
-
+    new scoreWrist(pArm_SS, pClawSS)
     );
   }
 }

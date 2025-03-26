@@ -8,11 +8,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.PositionsDictionnary;
 import frc.robot.subsystems.ARM_SS;
+import frc.robot.subsystems.ClawSS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class goToCoralStation extends Command {
   ARM_SS mArm_SS;
+  ClawSS mClawSS;
+
   private PositionType_SS mTarget = PositionsDictionnary.mPositionCoralStation;
   PositionType_SS mCurrent;
   /** Creates a new goToRest. */

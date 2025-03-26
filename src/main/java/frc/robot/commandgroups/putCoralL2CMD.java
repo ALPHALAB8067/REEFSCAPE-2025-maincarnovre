@@ -7,7 +7,7 @@ package frc.robot.commandgroups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.goToL2;
-import frc.robot.commands.claw.ClawExitCMD;
+import frc.robot.commands.scoreWrist;
 import frc.robot.commands.claw.ClawGoStraight;
 import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.ClawSS;
@@ -29,8 +29,7 @@ public class putCoralL2CMD extends SequentialCommandGroup {
       new goToL2(armss)
     ),
 
-    new ClawExitCMD(clawSS).withTimeout(1)
-
+    new scoreWrist(pArm_SS, pClawSS)
     );
   }
 }
