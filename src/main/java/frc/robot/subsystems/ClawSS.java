@@ -76,7 +76,9 @@ public class ClawSS extends SubsystemBase {
   public void turnWheel() {
     wheelSparkMax.set(ClawConstants.turnWheelPercent);
   }
-
+  public void RetainCoral(){
+    wheelSparkMax.set(ClawConstants.retainCoralPercent);
+  }
   public void reverseWheel() {
     wheelSparkMax.set(ClawConstants.reverseWheelPercent);
   }

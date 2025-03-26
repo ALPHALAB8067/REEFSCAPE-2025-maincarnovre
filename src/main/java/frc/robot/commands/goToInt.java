@@ -43,7 +43,7 @@ public class goToInt extends Command {
       mArm_SS.S3A(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL4){
-      mArm_SS.S2A(mTarget);
+      mArm_SS.S3B(mTarget);
     }
     if (mCurrent == PositionsDictionnary.mPositionCoralStation){
       mArm_SS.S2A(mTarget);

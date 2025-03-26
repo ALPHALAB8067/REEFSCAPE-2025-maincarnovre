@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmSlightlyUp_CMD;
-import frc.robot.commands.dontbreakIntake2;
+import frc.robot.commands.dontbreakintake2;
 import frc.robot.commands.dontbreakintake;
 import frc.robot.commands.dontbreakWrist;
 import frc.robot.commands.dontbreakintakedown;
@@ -36,11 +36,11 @@ public class GetCoralCMDG extends SequentialCommandGroup {
       new dontbreakintake(armss),
       new ParallelCommandGroup(
         new ClawGoAngledCMD(wrist),
-        new dontbreakIntake2(armss),
+        new dontbreakintake2(armss),
         new intakeDownCMD(intake)
 
         ),
-      new WaitCommand(0.5),
+      new WaitCommand(0.3),
       new goToInt(pArm_SS),
       //arm takes coral
       

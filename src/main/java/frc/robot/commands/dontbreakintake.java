@@ -46,8 +46,24 @@ public class dontbreakintake extends Command {
       addedAngle = 5;
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
+    if(mCurrent == PositionsDictionnary.mPositionL3) {
+      addedAngle = 0;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
+    if(mCurrent == PositionsDictionnary.mPositionL4) {
+      addedAngle = 0;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
+    if(mCurrent == PositionsDictionnary.mPositionCoralStation) {
+      addedAngle = 0;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
+    if(mCurrent == PositionsDictionnary.mPositionAlgae) {
+      addedAngle = 0;
+      mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
+    }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      addedAngle = 30;
+      addedAngle = 32;
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     

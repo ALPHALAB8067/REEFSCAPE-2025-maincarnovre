@@ -10,14 +10,14 @@ import frc.robot.subsystems.ARM_SS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class dontbreakWrist extends Command {
+public class scoreWrist extends Command {
   /** Creates a new dontbreakintake. */
   private final ARM_SS mArm_SS;
   PositionType_SS mCurrent;
   double startpos;
   private double addedAngle;
 
-  public dontbreakWrist(ARM_SS pArm_SS) {
+  public scoreWrist(ARM_SS pArm_SS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
   }
@@ -43,7 +43,7 @@ public class dontbreakWrist extends Command {
     if(mCurrent == PositionsDictionnary.mPositionL2) {
       addedAngle = 0;
       mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);    
-    } 
+    }
     if(mCurrent == PositionsDictionnary.mPositionL3) {
       addedAngle = 0;
       mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
@@ -61,7 +61,7 @@ public class dontbreakWrist extends Command {
       mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      addedAngle = -9;
+      addedAngle = 0;
       mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
     }
     
