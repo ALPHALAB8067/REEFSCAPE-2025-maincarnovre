@@ -23,7 +23,14 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commandgroups.CloseRobotCMDG;
 import frc.robot.commandgroups.GetCoralCMDG;
+import frc.robot.commandgroups.GetStationCoralCMDG;
+import frc.robot.commandgroups.GetStationCoralCMDGteleop;
+import frc.robot.commandgroups.L1_CMDG;
+import frc.robot.commandgroups.L2_CMDG;
+import frc.robot.commandgroups.L3_CMDG;
+import frc.robot.commandgroups.L4_CMDG;
 import frc.robot.commands.dontbreakintake2;
+import frc.robot.commands.comebackwrist;
 import frc.robot.commands.dontbreakWrist;
 import frc.robot.commands.dontbreakintake;
 import frc.robot.commands.goToCoralStation;
@@ -33,6 +40,7 @@ import frc.robot.commands.goToL2;
 import frc.robot.commands.goToL3;
 import frc.robot.commands.goToL4;
 import frc.robot.commands.goToRest;
+import frc.robot.commands.scoreWrist;
 import frc.robot.commands.claw.ClawExitCMD;
 import frc.robot.commands.claw.ClawGoAngledCMD;
 import frc.robot.commands.claw.ClawGoStraight;
@@ -188,6 +196,13 @@ private final goToL3 mGoToL3 = new goToL3(mArm_SS);
 private final goToL2 mGoToL2 = new goToL2(mArm_SS);
 private final goToL1 mGoToL1 = new goToL1(mArm_SS);
 private final goToL4 mGoToL4 = new goToL4(mArm_SS);
+
+private final L4_CMDG ml4_CMDG = new L4_CMDG(mClawSS, mArm_SS);
+private final L3_CMDG mL3_CMDG = new L3_CMDG(mClawSS, mArm_SS);
+private final L2_CMDG mL2_CMDG = new L2_CMDG(mClawSS, mArm_SS);
+private final L1_CMDG mL1_CMDG  = new L1_CMDG(mClawSS, mArm_SS);
+
+
 private final goToCoralStation mgotocoral = new goToCoralStation(mArm_SS);
 private final GetCoralCMDG mGetCoralCMDG = new GetCoralCMDG(mIntakeSS, mArm_SS, mClawSS);
 private final goToInt mGoToInt = new goToInt(mArm_SS);
@@ -195,6 +210,10 @@ private final CloseRobotCMDG mCloseRobotCMDG = new CloseRobotCMDG(mIntakeSS, mAr
 private final dontbreakintake2 mDontbreakIntake2 = new dontbreakintake2(mArm_SS);
 private final dontbreakWrist mDontbreakWrist = new dontbreakWrist(mArm_SS);
 private final dontbreakintake mDontbreakintake = new dontbreakintake(mArm_SS);
+private final scoreWrist mScoreWrist = new scoreWrist(mArm_SS, mClawSS);
+private final GetStationCoralCMDG mGetStationCoralCMDG = new GetStationCoralCMDG(mArm_SS, mClawSS);
+private final GetStationCoralCMDGteleop mGetStationCoralCMDGteleop = new GetStationCoralCMDGteleop(mArm_SS, mClawSS);
+private final comebackwrist mcomebackwrist = new comebackwrist(mArm_SS, mClawSS);
 
 
 //private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
@@ -421,7 +440,8 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     NamedCommands.registerCommand("GoToL4CMD", mGoToL4);
     NamedCommands.registerCommand("GoToRest", mGoToRest);
     NamedCommands.registerCommand("gotocoralstation", mgotocoral);
-    //NamedCommands.registerCommand("rogerthat", mWristToPosL4);
+    NamedCommands.registerCommand("rogerthat", mScoreWrist);
+    NamedCommands.registerCommand("goblegoble", mGetStationCoralCMDG);
 
 
     
@@ -443,23 +463,21 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
   private void configureBindings()
   {
 
-    btn3.whileTrue(mGoToL3);
-    btn5.whileTrue(mGoToL4);
+    btn3.whileTrue(mL3_CMDG);
+    btn5.whileTrue(ml4_CMDG);
     Sbtn8.whileTrue(mGoToRest);
-    btn7.whileTrue(mGoToL2);
-    btn12.whileTrue(mGoToL1);
-    btn6.whileTrue(mGetCoralCMDG);
+    btn7.whileTrue(mL2_CMDG);
+    btn12.whileTrue(mL1_CMDG);
 
-    Sbtn12.whileTrue(mCloseRobotCMDG);
+    Sbtn12.whileTrue(mScoreWrist);
     
-    Sbtn11.whileTrue(mClawGoStraight);
-    Sbtn4.whileTrue(mClawGoAngledCMD);
-    Sbtn10.whileTrue(mClawIntakeCMD);
+    Sbtn11.whileTrue(mCloseRobotCMDG);
+    Sbtn4.whileTrue(mGetCoralCMDG);
+    Sbtn10.whileTrue(mcomebackwrist);
 
 
-    Sbtn1.whileTrue(mIntakeDownCMD);
-    Sbtn2.whileTrue(mIntakeUpCMD);
-    Sbtn5.whileTrue(mIntakeWheelCMD);
+  
+    Sbtn5.whileTrue(mGetStationCoralCMDGteleop);
     
 
 
@@ -552,8 +570,8 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
       btn5.whileTrue(mGoToL4);
        */
 
-        //Sbtn1.whileTrue(MoveToGR);
-        //Sbtn2.whileTrue(MoveToHR);
+        Sbtn1.whileTrue(MoveToGR);
+        Sbtn2.whileTrue(MoveToHR);
 
         Sbtn3.whileTrue(MoveToIR);
         Sbtn6.whileTrue(MoveToER);
@@ -561,7 +579,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn1.whileTrue(MoveToDR);
         btn2.whileTrue(MoveToBR);
         btn4.whileTrue(MoveToLR);
-        //btn6.whileTrue(MoveToJR);
+        btn6.whileTrue(MoveToJR);
         btn8.whileTrue(MoveToFR);
         btn10.whileTrue(MoveToCR);
         btn11.whileTrue(MoveToAR);

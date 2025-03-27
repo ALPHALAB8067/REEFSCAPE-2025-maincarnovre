@@ -34,7 +34,7 @@ public final class Constants
   {
 
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.2, 0.000, 0);
-    public static final PIDConstants ANGLE_PID       = new PIDConstants(3, 0.0007, 0.09);
+    public static final PIDConstants ANGLE_PID       = new PIDConstants(3, 0.000, 0.);
   }
 
   public static final class DrivebaseConstants
@@ -59,7 +59,7 @@ public final class Constants
     public static final double ExtensionPouceParTour = 4.92 ;
     public static final double WristdegresParTour = 76.5;
 
-    public static final double RotationEncoderOffSet = 0;
+    public static final double RotationEncoderOffSet = -4;
     public static final double ExtensionEncoderOffSet = 0;
     public static final double WristEncoderOffSet = -100;
     public static final double WristLength = 20.2;

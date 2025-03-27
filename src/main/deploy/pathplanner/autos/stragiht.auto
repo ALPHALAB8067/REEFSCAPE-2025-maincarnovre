@@ -9,12 +9,6 @@
           "data": {
             "pathName": "gostraightred"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "GoToL4CMD"
-          }
         }
       ]
     }

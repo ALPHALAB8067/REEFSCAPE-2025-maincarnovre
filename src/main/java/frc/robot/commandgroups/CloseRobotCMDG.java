@@ -28,12 +28,12 @@ public class CloseRobotCMDG extends SequentialCommandGroup {
 
     addCommands(
     new ParallelRaceGroup(
-      new RetainCoralCMD(clawSS),
+    //  new RetainCoralCMD(clawSS),
       new SequentialCommandGroup(
           new dontbreakWrist(armss),
           new dontbreakintake2(armss),
           new intakeUpCMD(intake),
-          new WaitCommand(0.5),
+          new WaitCommand(0.75),
            new goToRest(armss)
         )
       )

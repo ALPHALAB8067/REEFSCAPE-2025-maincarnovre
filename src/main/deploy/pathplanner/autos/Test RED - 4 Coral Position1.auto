@@ -30,15 +30,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "gotocoralstation"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "goblegoble"
+                }
+              },
               {
                 "type": "path",
                 "data": {
@@ -49,9 +49,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 3.0
+            "name": "goblegoble"
           }
         },
         {
