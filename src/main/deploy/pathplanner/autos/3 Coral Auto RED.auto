@@ -63,6 +63,37 @@
                 "data": {
                   "pathName": "Station to L"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "GoToL4CMD"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "rogerthat"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "L to Station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "goblegoble"
+                }
               }
             ]
           }

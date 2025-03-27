@@ -231,16 +231,24 @@ private final comebackwrist mcomebackwrist = new comebackwrist(mArm_SS, mClawSS)
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * -1,
-                                                                () -> driverXbox.getLeftX() * -1)
+                                                                () -> driverXbox.getLeftY() * -0.7,
+                                                                () -> driverXbox.getLeftX() * -0.7)
                                                             .withControllerRotationAxis(() -> driverXbox.getRightX() * -0.5)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
   SwerveInputStream driveSlowly = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                            () -> driverXbox.getLeftY() * -0.4,
-                                                            () -> driverXbox.getLeftX() * -0.4)
+                                                            () -> driverXbox.getLeftY() * -0.35,
+                                                            () -> driverXbox.getLeftX() * -0.35)
+                                                        .withControllerRotationAxis(() -> driverXbox.getRightX() * -0.4)
+                                                        .deadband(OperatorConstants.DEADBAND)
+                                                        .scaleTranslation(0.8)
+                                                        .allianceRelativeControl(true);
+
+  SwerveInputStream fastcommand = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                            () -> driverXbox.getLeftY() * -0.9,
+                                                            () -> driverXbox.getLeftX() * -0.9)
                                                         .withControllerRotationAxis(() -> driverXbox.getRightX() * -0.5)
                                                         .deadband(OperatorConstants.DEADBAND)
                                                         .scaleTranslation(0.8)
@@ -316,6 +324,19 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
   () -> drivebase.YPose(FieldConstants.RedAlliancePoses.PoteauLR.getY()))                                                            
   .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.RedAlliancePoses.PoteauLR.getRotation().getDegrees()));
 
+  
+  SwerveInputStream StationLEFTRED = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.StationRed.Redleft.getX()),
+  () -> drivebase.YPose(FieldConstants.StationRed.Redleft.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.StationRed.Redleft.getRotation().getDegrees()));
+  
+  
+  SwerveInputStream StationRIGHTRED = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.StationRed.Redright.getX()),
+  () -> drivebase.YPose(FieldConstants.StationRed.Redright.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.StationRed.Redright.getRotation().getDegrees()));
+  
+
   // Blue Alliance 
 
   SwerveInputStream PoteauA = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
@@ -377,6 +398,17 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
   () -> drivebase.XPose(FieldConstants.BlueAlliancePoses.PoteauL.getX()),
   () -> drivebase.YPose(FieldConstants.BlueAlliancePoses.PoteauL.getY()))                                                            
   .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.BlueAlliancePoses.PoteauL.getRotation().getDegrees()));
+  
+
+  SwerveInputStream StationLEFTBLUE = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.StationBlue.Blueleft.getX()),
+  () -> drivebase.YPose(FieldConstants.StationBlue.Blueleft.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.StationBlue.Blueleft.getRotation().getDegrees()));
+  
+  SwerveInputStream StationRIGHTBLUE = driveAngularVelocity.copy().of( drivebase.getSwerveDrive(),
+  () -> drivebase.XPose(FieldConstants.StationBlue.Blueright.getX()),
+  () -> drivebase.YPose(FieldConstants.StationBlue.Blueright.getY()))                                                            
+  .withControllerRotationAxis(() -> drivebase.RotPose(FieldConstants.StationBlue.Blueright.getRotation().getDegrees()));
   
 
   /**
@@ -507,6 +539,14 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     Command MoveToKR = drivebase.driveFieldOriented(PoteauKR);
     Command MoveToLR = drivebase.driveFieldOriented(PoteauLR);
 
+    Command MovetoStationBLUERIGHT = drivebase.driveFieldOriented(StationRIGHTBLUE);
+    Command MovetoStationBLUELEFT = drivebase.driveFieldOriented(StationLEFTBLUE);
+
+    
+    Command MovetoStationREDRIGHT = drivebase.driveFieldOriented(StationRIGHTRED);
+    Command MovetoStationREDLEFT = drivebase.driveFieldOriented(StationLEFTRED);
+
+
     // Poteau Positions Bleu
 
     Command MoveToA = drivebase.driveFieldOriented(PoteauA);
@@ -522,8 +562,10 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     Command MoveToK = drivebase.driveFieldOriented(PoteauK);
     Command MoveToL = drivebase.driveFieldOriented(PoteauL);
     
+
     //
     Command DriveSlow = drivebase.driveFieldOriented(driveSlowly);
+    Command fast = drivebase.driveFieldOriented(fastcommand);
 
 
     if (RobotBase.isSimulation())
@@ -559,20 +601,10 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     {
 
     
-      //Button BOX
-    //  if(SwerveSubsystem.isRedAlliance() == true) { 
-     
-    /*
-      Sbtn8.whileTrue(mGoToRest);
-      btn12.whileTrue(mGoToL1);
-      btn7.whileTrue(mGoToL2);
-      btn3.whileTrue(mGoToL3);
-      btn5.whileTrue(mGoToL4);
-       */
-
+   
+// RED
         Sbtn1.whileTrue(MoveToGR);
         Sbtn2.whileTrue(MoveToHR);
-
         Sbtn3.whileTrue(MoveToIR);
         Sbtn6.whileTrue(MoveToER);
         Sbtn7.whileTrue(MoveToKR);
@@ -583,6 +615,12 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn8.whileTrue(MoveToFR);
         btn10.whileTrue(MoveToCR);
         btn11.whileTrue(MoveToAR);
+
+        driverXbox.a().whileTrue(DriveSlow);
+        driverXbox.y().whileTrue(fast);
+        driverXbox.b().whileTrue(MovetoStationREDRIGHT);
+        driverXbox.x().whileTrue(MovetoStationREDLEFT);
+
 
 
         /* 
@@ -598,8 +636,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
          4  \__ __/  10
              11  2 
 */
-
-    /*   } else if(SwerveSubsystem.isRedAlliance() == false){ 
+/*
         Sbtn1.whileTrue(MoveToG);
         Sbtn2.whileTrue(MoveToH);
         Sbtn3.whileTrue(MoveToI);
@@ -612,8 +649,8 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn8.whileTrue(MoveToF);
         btn10.whileTrue(MoveToC);
         btn11.whileTrue(MoveToA);
-    */
- 
+    
+  */
     //  } 
       //L1-2-3-4
       //ReefPositions

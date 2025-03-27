@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.403265073476186,
-        "y": 2.2873195111744575
+        "x": 10.403,
+        "y": 2.287
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.213636274376515,
-        "y": 2.41705485097116
+        "x": 11.21337120090033,
+        "y": 2.4167353397967024
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.570081967213113,
-        "y": 2.7842725409836064
+        "x": 13.55809426229508,
+        "y": 2.820235655737705
       },
       "prevControl": {
-        "x": 13.606045081967215,
-        "y": 1.153944672131147
+        "x": 13.821823770491806,
+        "y": 1.5855020491803278
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End of Start to J"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],

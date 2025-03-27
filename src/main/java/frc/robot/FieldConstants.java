@@ -26,18 +26,18 @@ public final class FieldConstants
 {
    public final class RedAlliancePoses{
 
-      public static Pose2d PoteauAR = new Pose2d(13.574, 2.809, Rotation2d.fromDegrees(180));
-      public static Pose2d PoteauBR = new Pose2d(14.363, 4.250, Rotation2d.fromDegrees(180));
-      public static Pose2d PoteauCR = new Pose2d(13.846, 5.045, Rotation2d.fromDegrees(-120));
-      public static Pose2d PoteauDR = new Pose2d(13.559, 5.234, Rotation2d.fromDegrees(-120));
-      public static Pose2d PoteauER = new Pose2d(12.546, 5.226, Rotation2d.fromDegrees(-60));
-      public static Pose2d PoteauFR = new Pose2d(12.262, 5.067, Rotation2d.fromDegrees(-60.000));
-      public static Pose2d PoteauGR = new Pose2d(11.762, 4.195, Rotation2d.fromDegrees(0));
-      public static Pose2d PoteauHR = new Pose2d(11.762, 3.850, Rotation2d.fromDegrees(0));
-      public static Pose2d PoteauIR = new Pose2d(12.264, 2.979, Rotation2d.fromDegrees(60));
-      public static Pose2d PoteauJR = new Pose2d(12.562, 2.823, Rotation2d.fromDegrees(60));
-      public static Pose2d PoteauKR = new Pose2d(13.510, 2.892, Rotation2d.fromDegrees(120));
-      public static Pose2d PoteauLR = new Pose2d(13.865, 2.980, Rotation2d.fromDegrees(120));
+      public static Pose2d PoteauAR = new Pose2d(14.373, 3.863, Rotation2d.fromDegrees(180));
+      public static Pose2d PoteauBR = new Pose2d(14.373, 4.180, Rotation2d.fromDegrees(180));
+      public static Pose2d PoteauCR = new Pose2d(13.858, 5.05, Rotation2d.fromDegrees(-120));
+      public static Pose2d PoteauDR = new Pose2d(13.558, 5.218, Rotation2d.fromDegrees(-120));
+      public static Pose2d PoteauER = new Pose2d(12.563, 5.206, Rotation2d.fromDegrees(-60));
+      public static Pose2d PoteauFR = new Pose2d(12.275, 5.062, Rotation2d.fromDegrees(-60));
+      public static Pose2d PoteauGR = new Pose2d(11.784, 4.175, Rotation2d.fromDegrees(0));
+      public static Pose2d PoteauHR = new Pose2d(11.784, 3.865, Rotation2d.fromDegrees(0));
+      public static Pose2d PoteauIR = new Pose2d(12.263, 2.988, Rotation2d.fromDegrees(60));
+      public static Pose2d PoteauJR = new Pose2d(12.563, 2.844, Rotation2d.fromDegrees(60));
+      public static Pose2d PoteauKR = new Pose2d(13.546, 2.844, Rotation2d.fromDegrees(120));
+      public static Pose2d PoteauLR = new Pose2d(13.858, 2.988, Rotation2d.fromDegrees(120));
    }
 
    public final class BlueAlliancePoses{
@@ -56,8 +56,15 @@ public final class FieldConstants
       public static Pose2d PoteauL = new Pose2d(3.706,5.060,Rotation2d.fromDegrees(-60));
    }
    public final class StationRed {
-      public static Pose2d RedDown = new Pose2d(15.980, 0.759, Rotation2d.fromDegrees(-60));
+      public static Pose2d Redleft = new Pose2d(16.339, 1.070, Rotation2d.fromDegrees(-54.293));
+      public static Pose2d Redright = new Pose2d(16.195, 7.040, Rotation2d.fromDegrees(51.680));
    }
+
+   public final class StationBlue {
+      public static Pose2d Blueleft = new Pose2d(1.223, 6.908, Rotation2d.fromDegrees(128.157));
+      public static Pose2d Blueright = new Pose2d(1.067, 1.202, Rotation2d.fromDegrees(-125.685));
+   }
+
 
 }
 

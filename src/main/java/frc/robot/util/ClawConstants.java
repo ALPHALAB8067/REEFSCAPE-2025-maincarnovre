@@ -32,7 +32,7 @@ public final class ClawConstants {
   public static final IdleMode wheelIdleMode = IdleMode.kCoast;
   public static final double straightPosition = 0.0;
   public static final double angledPosition = 90.0;
-  public static final double turnWheelPercent = 0.9;
-  public static final double reverseWheelPercent = -turnWheelPercent;
-  public static final double retainCoralPercent = 0.2;
+  public static final double turnWheelPercent = 0.8;
+  public static final double reverseWheelPercent = -0.5;
+  public static final double retainCoralPercent = 0.1;
 }

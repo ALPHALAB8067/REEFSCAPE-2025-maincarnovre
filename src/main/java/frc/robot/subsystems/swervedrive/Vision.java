@@ -146,7 +146,7 @@ public class Vision
     for (Cameras camera : Cameras.values())
     {
       Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
-      if (poseEst.isPresent())
+      if (poseEst != null && poseEst.isPresent())
       {
         var pose = poseEst.get();
 

@@ -5,13 +5,13 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Start to J"
+                  "pathName": "Blue Start to D"
                 }
               },
               {
@@ -24,21 +24,34 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 2.0
+            "name": "rogerthat"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "K to Station"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "goblegoble"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Blue D to station"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": []
+            "name": "goblegoble"
           }
         },
         {
@@ -48,46 +61,41 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Station to L"
+                  "pathName": "Blue Station to L"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "GoToRest"
+                  "name": "GoToL4CMD"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "L to Station"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Station to A"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "GoToL4CMD"
+            "name": "rogerthat"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "New Path"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "New New Path"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Blue L to Station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "goblegoble"
+                }
+              }
+            ]
           }
         }
       ]

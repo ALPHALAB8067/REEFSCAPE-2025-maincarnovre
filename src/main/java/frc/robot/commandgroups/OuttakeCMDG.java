@@ -5,38 +5,26 @@
 package frc.robot.commandgroups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.goToCoralStation;
-import frc.robot.commands.claw.ClawGoAngledCMD;
-import frc.robot.commands.claw.ClawIntakeCMD;
-import frc.robot.subsystems.ARM_SS;
+import frc.robot.commands.claw.ClawExitCMD;
+import frc.robot.commands.intake.intakeWheelReverseCMD;
 import frc.robot.subsystems.ClawSS;
+import frc.robot.subsystems.IntakeSS;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class GetStationCoralCMDG extends SequentialCommandGroup {
-  /** Creates a new GetStationCoralCMDG. */
-  private final ARM_SS mArm_SS;
-  private final ClawSS mClawSS;
-  private final ClawSS wrist;
-
-
-  public GetStationCoralCMDG(ARM_SS pArm_SS, ClawSS pClawSS){
-    mArm_SS = pArm_SS;
+public class OuttakeCMDG extends ParallelCommandGroup {
+  ClawSS mClawSS;
+  IntakeSS mIntakeSS;
+  /** Creates a new OuttakeCMDG. */
+  public OuttakeCMDG(ClawSS pClawSS, IntakeSS pIntakeSS) {
+    mIntakeSS = pIntakeSS;
     mClawSS = pClawSS;
-    wrist = pClawSS;
-
-
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-new ParallelCommandGroup(
-    new goToCoralStation(mArm_SS),
-    new ClawGoAngledCMD(wrist),
-    new ClawIntakeCMD(pClawSS).withTimeout(1)
-)
-
+      new ClawExitCMD(mClawSS),
+      new intakeWheelReverseCMD(mIntakeSS)
     );
   }
 }
