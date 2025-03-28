@@ -61,7 +61,7 @@ public class dontbreakintake2 extends Command {
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      addedAngle = 35;
+      addedAngle = 32;
       mArm_SS.setArmPosition(mArm_SS.GetPositionTypeAngle() + addedAngle);
     }
     

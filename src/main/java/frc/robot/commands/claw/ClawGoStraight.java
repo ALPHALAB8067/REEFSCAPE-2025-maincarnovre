@@ -23,7 +23,7 @@ public class ClawGoStraight extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    clawss.stopWrist();
+
   }
 
   @Override

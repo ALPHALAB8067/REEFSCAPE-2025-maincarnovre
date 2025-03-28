@@ -131,9 +131,9 @@ ARM_SS extends SubsystemBase {
         .inverted(false);
       mWristConfig.closedLoop
       .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-      .pid(0.006,0.0000021,0.0095,ClosedLoopSlot.kSlot0)
-      .minOutput(-0.6)
-      .maxOutput(0.6);
+      .pid(0.0065,0.0000021,0.0095,ClosedLoopSlot.kSlot0)
+      .minOutput(-0.7)
+      .maxOutput(0.7);
       //.maxMotion.maxAcceleration(12000)
       //.maxVelocity(18000)
       //.allowedClosedLoopError(1);

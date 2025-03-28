@@ -61,7 +61,7 @@ public class dontbreakWrist extends Command {
       mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      addedAngle = -9;
+      addedAngle = -10;
       mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
     }
     
@@ -81,7 +81,7 @@ public class dontbreakWrist extends Command {
   public boolean isFinished() {
     
     //startpos == mArm_SS.GetPositionTypeAngle() - dontbreakintakedown.degree
-    if(mArm_SS.isWristInPosition(mArm_SS.GetPositionTypeWrist() + addedAngle, 4)) {
+    if(mArm_SS.isWristInPosition(mArm_SS.GetPositionTypeWrist() + addedAngle, 2.5)) {
       return true;
     } else {
       return false;
