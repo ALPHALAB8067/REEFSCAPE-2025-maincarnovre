@@ -7,22 +7,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.PositionsDictionnary;
 import frc.robot.subsystems.ARM_SS;
-import frc.robot.subsystems.ClawSS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class scoreWrist extends Command {
   /** Creates a new dontbreakintake. */
   private final ARM_SS mArm_SS;
-  private final ClawSS mClawSS;
   PositionType_SS mCurrent;
   double startpos;
   private double addedAngle;
 
-  public scoreWrist(ARM_SS pArm_SS, ClawSS pClawSS) {
+  public scoreWrist(ARM_SS pArm_SS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
-    mClawSS = pClawSS;
   }
 
   // Called when the command is initially scheduled.

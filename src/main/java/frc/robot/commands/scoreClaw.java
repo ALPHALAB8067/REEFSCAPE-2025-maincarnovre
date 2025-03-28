@@ -17,7 +17,7 @@ public class scoreClaw extends Command {
   private final ClawSS mClawSS;
   PositionType_SS mCurrent;
   double startpos;
-  private double addedAngle;
+
 
   public scoreClaw(ARM_SS pArm_SS, ClawSS pClawSS) {
     // Use addRequirements() here to declare subsystem dependencies.

@@ -88,6 +88,8 @@ public class ClawSS extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("wrist temperature",rotateSparkMax.getMotorTemperature());
+    SmartDashboard.putNumber("wheel temperature",wheelSparkMax.getMotorTemperature());
     SmartDashboard.putBoolean("IsAtAngle", IsAtAngle(90));
     SmartDashboard.putNumber("Position", getRotatePosition());
 
