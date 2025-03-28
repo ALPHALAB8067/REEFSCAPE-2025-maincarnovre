@@ -23,8 +23,7 @@ public class removeAlgaeCMDG extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new ClawGoAngledCMD(pClawSS),
         new goToAlgae(pArm_SS)
-      ),
-      new scoreWrist(pArm_SS, pClawSS)
+      )
   
       
 

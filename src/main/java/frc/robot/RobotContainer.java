@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.Util;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -41,6 +42,7 @@ import frc.robot.commands.goToL2;
 import frc.robot.commands.goToL3;
 import frc.robot.commands.goToL4;
 import frc.robot.commands.goToRest;
+import frc.robot.commands.scoreClaw;
 import frc.robot.commands.scoreWrist;
 import frc.robot.commands.stopTheArm_CMD;
 import frc.robot.commands.claw.ClawExitCMD;
@@ -87,6 +89,8 @@ import frc.robot.subsystems.IntakeSS;
 import frc.robot.subsystems.WristSS;
  */
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.util.Buttonbox;
+
 import java.io.File;
 import java.lang.reflect.Field;
 
@@ -212,7 +216,8 @@ private final CloseRobotCMDG mCloseRobotCMDG = new CloseRobotCMDG(mIntakeSS, mAr
 private final dontbreakintake2 mDontbreakIntake2 = new dontbreakintake2(mArm_SS);
 private final dontbreakWrist mDontbreakWrist = new dontbreakWrist(mArm_SS);
 private final dontbreakintake mDontbreakintake = new dontbreakintake(mArm_SS);
-private final scoreWrist mScoreWrist = new scoreWrist(mArm_SS, mClawSS);
+private final scoreWrist mScoreWrist = new scoreWrist(mArm_SS);
+private final scoreClaw mScoreClaw = new scoreClaw(mArm_SS, mClawSS);
 private final GetStationCoralCMDG mGetStationCoralCMDG = new GetStationCoralCMDG(mArm_SS, mClawSS);
 private final GetStationCoralCMDGteleop mGetStationCoralCMDGteleop = new GetStationCoralCMDGteleop(mArm_SS, mClawSS);
 private final comebackwrist mcomebackwrist = new comebackwrist(mArm_SS, mClawSS);
@@ -498,24 +503,21 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
    */
   private void configureBindings()
   {
+    Buttonbox.other_btn8.whileTrue(mGoToRest);
+    Buttonbox.btn12.whileTrue(mL1_CMDG);
+    Buttonbox.btn7.whileTrue(mL2_CMDG);
+    Buttonbox.btn3.whileTrue(mL3_CMDG);
+    Buttonbox.btn5.whileTrue(ml4_CMDG);
+   
+    Buttonbox.other_btn12.whileTrue(mScoreWrist );
+    Buttonbox.other_btn12.whileTrue(mScoreClaw );
 
-    btn3.whileTrue(mL3_CMDG);
-    btn5.whileTrue(ml4_CMDG);
-    Sbtn8.whileTrue(mGoToRest);
-    btn7.whileTrue(mL2_CMDG);
-    btn12.whileTrue(mL1_CMDG);
-
-    Sbtn12.whileTrue(mScoreWrist);
     
-    Sbtn11.whileTrue(mCloseRobotCMDG);
-    Sbtn4.whileTrue(mGetCoralCMDG);
-    Sbtn10.whileTrue(mcomebackwrist);
-
-
-  
-    Sbtn5.whileTrue(mGetStationCoralCMDGteleop);
+    Buttonbox.other_btn11.whileTrue(mCloseRobotCMDG);
+    Buttonbox.other_btn4.whileTrue(mGetCoralCMDG);
+    Buttonbox.other_btn10.whileTrue(mcomebackwrist);
+    Buttonbox.other_btn5.whileTrue(mGetStationCoralCMDGteleop);
     
-
 
 
 
@@ -607,19 +609,19 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
     
    
 
-        Sbtn1.whileTrue(MoveToGR);
-        Sbtn2.whileTrue(MoveToHR);
-        Sbtn3.whileTrue(MoveToIR);
-        Sbtn6.whileTrue(MoveToJR);
-        Sbtn7.whileTrue(MoveToKR);
-        btn1.whileTrue(MoveToDR);
-        btn2.whileTrue(MoveToBR);
-        btn4.whileTrue(MoveToLR);
-        btn6.whileTrue(MoveToER);
-        btn8.whileTrue(MoveToFR);
-        btn10.whileTrue(MoveToCR);
-        btn11.whileTrue(MoveToAR);
-  
+        Buttonbox.other_btn1.whileTrue(MoveToGR);
+        Buttonbox.other_btn2.whileTrue(MoveToHR);
+        Buttonbox.other_btn3.whileTrue(MoveToIR);
+        Buttonbox.other_btn6.whileTrue(MoveToER);
+        Buttonbox.other_btn7.whileTrue(MoveToKR);
+        Buttonbox.btn1.whileTrue(MoveToDR);
+        Buttonbox.btn2.whileTrue(MoveToBR);
+        Buttonbox.btn4.whileTrue(MoveToLR);
+        Buttonbox.btn6.whileTrue(MoveToJR);
+        Buttonbox.btn8.whileTrue(MoveToFR);
+        Buttonbox.btn10.whileTrue(MoveToCR);
+        Buttonbox.btn11.whileTrue(MoveToAR);
+
         driverXbox.a().whileTrue(DriveSlow);
         driverXbox.y().whileTrue(fast);
         driverXbox.b().whileTrue(MovetoStationBLUERIGHT);
