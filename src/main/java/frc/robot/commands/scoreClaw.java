@@ -11,7 +11,7 @@ import frc.robot.subsystems.ClawSS;
 import frc.robot.subsystems.PositionType_SS;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class scoreWrist extends Command {
+public class scoreClaw extends Command {
   /** Creates a new dontbreakintake. */
   private final ARM_SS mArm_SS;
   private final ClawSS mClawSS;
@@ -19,7 +19,7 @@ public class scoreWrist extends Command {
   double startpos;
   private double addedAngle;
 
-  public scoreWrist(ARM_SS pArm_SS, ClawSS pClawSS) {
+  public scoreClaw(ARM_SS pArm_SS, ClawSS pClawSS) {
     // Use addRequirements() here to declare subsystem dependencies.
     mArm_SS = pArm_SS;
     mClawSS = pClawSS;
@@ -36,31 +36,28 @@ public class scoreWrist extends Command {
   public void execute() {
     mCurrent = mArm_SS.whereAmI();
     if(mCurrent == PositionsDictionnary.mPositionRest) {
-    //nothing
+      //nothing
     }
     if(mCurrent == PositionsDictionnary.mPositionL1) {
-    //nothing
+      mClawSS.reverseWheel();
     }
     if(mCurrent == PositionsDictionnary.mPositionL2) {
-      addedAngle = -45;
-      mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
+      //nothing
     }
     if(mCurrent == PositionsDictionnary.mPositionL3) {
-      addedAngle = -50;
-      mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
+      //nothing
     }
     if(mCurrent == PositionsDictionnary.mPositionL4) {
-      addedAngle = -75;
-     mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
+      //nothing
     }
     if(mCurrent == PositionsDictionnary.mPositionCoralStation) {
-    //nothing
+      mClawSS.turnWheel();
     }
     if(mCurrent == PositionsDictionnary.mPositionAlgae) {
-    //nothing    
+      mClawSS.reverseWheel();
     }
     if(mCurrent == PositionsDictionnary.mPositionIntake) {
-      mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
+    //nothing
     }
     
 
@@ -71,8 +68,8 @@ public class scoreWrist extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mClawSS.stop();
 
-    mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist());
   }
 
   // Returns true when the command should end.
