@@ -23,7 +23,7 @@ public class ClawGoAngledCMD extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    clawss.stopWrist();
+
   }
 
   @Override

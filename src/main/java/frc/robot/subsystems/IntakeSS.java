@@ -31,7 +31,7 @@ public class IntakeSS extends SubsystemBase {
     rightSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, intakeConstants.rightSolenoidFWDPort, intakeConstants.rightSolenoidRVRSPort);
     
     compressor = new Compressor(PneumaticsModuleType.REVPH);
-    compressor.enableAnalog(40, 65);
+    compressor.enableAnalog(60, 100);
 
     wheelSparkMax = new SparkMax(intakeConstants.wheelSparkMaxPort, MotorType.kBrushless);
 

@@ -39,7 +39,7 @@ public class goToRest extends Command {
       mArm_SS.S2B(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL2){
-      mArm_SS.S1B(mTarget);
+      mArm_SS.S2A(mTarget);
     }
     if(mCurrent == PositionsDictionnary.mPositionL3){
       //S3B

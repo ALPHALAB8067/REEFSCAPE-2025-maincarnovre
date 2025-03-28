@@ -29,6 +29,7 @@ import frc.robot.commandgroups.L1_CMDG;
 import frc.robot.commandgroups.L2_CMDG;
 import frc.robot.commandgroups.L3_CMDG;
 import frc.robot.commandgroups.L4_CMDG;
+import frc.robot.commandgroups.OuttakeCMDG;
 import frc.robot.commands.dontbreakintake2;
 import frc.robot.commands.comebackwrist;
 import frc.robot.commands.dontbreakWrist;
@@ -214,6 +215,7 @@ private final scoreWrist mScoreWrist = new scoreWrist(mArm_SS, mClawSS);
 private final GetStationCoralCMDG mGetStationCoralCMDG = new GetStationCoralCMDG(mArm_SS, mClawSS);
 private final GetStationCoralCMDGteleop mGetStationCoralCMDGteleop = new GetStationCoralCMDGteleop(mArm_SS, mClawSS);
 private final comebackwrist mcomebackwrist = new comebackwrist(mArm_SS, mClawSS);
+private final OuttakeCMDG mOuttakeCMDG = new OuttakeCMDG(mClawSS, mIntakeSS);
 
 
 //private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
@@ -602,7 +604,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
 
     
    
-// RED
+
         Sbtn1.whileTrue(MoveToGR);
         Sbtn2.whileTrue(MoveToHR);
         Sbtn3.whileTrue(MoveToIR);
@@ -620,6 +622,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         driverXbox.y().whileTrue(fast);
         driverXbox.b().whileTrue(MovetoStationREDRIGHT);
         driverXbox.x().whileTrue(MovetoStationREDLEFT);
+        driverXbox.rightStick().whileTrue(mOuttakeCMDG);
 
 
 
@@ -636,8 +639,7 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
          4  \__ __/  10
              11  2 
 */
-/*
-        Sbtn1.whileTrue(MoveToG);
+/*        Sbtn1.whileTrue(MoveToG);
         Sbtn2.whileTrue(MoveToH);
         Sbtn3.whileTrue(MoveToI);
         Sbtn6.whileTrue(MoveToE);
@@ -649,8 +651,9 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         btn8.whileTrue(MoveToF);
         btn10.whileTrue(MoveToC);
         btn11.whileTrue(MoveToA);
-    
-  */
+     */
+
+  
     //  } 
       //L1-2-3-4
       //ReefPositions
