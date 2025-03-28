@@ -9,6 +9,18 @@
           "data": {
             "pathName": "straightforthewin"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GoToL4CMD"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "rogerthat"
+          }
         }
       ]
     }

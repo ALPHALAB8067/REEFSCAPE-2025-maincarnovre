@@ -42,6 +42,7 @@ import frc.robot.commands.goToL3;
 import frc.robot.commands.goToL4;
 import frc.robot.commands.goToRest;
 import frc.robot.commands.scoreWrist;
+import frc.robot.commands.stopTheArm_CMD;
 import frc.robot.commands.claw.ClawExitCMD;
 import frc.robot.commands.claw.ClawGoAngledCMD;
 import frc.robot.commands.claw.ClawGoStraight;
@@ -216,6 +217,7 @@ private final GetStationCoralCMDG mGetStationCoralCMDG = new GetStationCoralCMDG
 private final GetStationCoralCMDGteleop mGetStationCoralCMDGteleop = new GetStationCoralCMDGteleop(mArm_SS, mClawSS);
 private final comebackwrist mcomebackwrist = new comebackwrist(mArm_SS, mClawSS);
 private final OuttakeCMDG mOuttakeCMDG = new OuttakeCMDG(mClawSS, mIntakeSS);
+private final stopTheArm_CMD mStopTheArm_CMD = new stopTheArm_CMD(mArm_SS);
 
 
 //private final WristGoToPosL4 mWristToPosL4 = new WristGoToPosL4(mArm_SS);
@@ -608,21 +610,22 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
         Sbtn1.whileTrue(MoveToGR);
         Sbtn2.whileTrue(MoveToHR);
         Sbtn3.whileTrue(MoveToIR);
-        Sbtn6.whileTrue(MoveToER);
+        Sbtn6.whileTrue(MoveToJR);
         Sbtn7.whileTrue(MoveToKR);
         btn1.whileTrue(MoveToDR);
         btn2.whileTrue(MoveToBR);
         btn4.whileTrue(MoveToLR);
-        btn6.whileTrue(MoveToJR);
+        btn6.whileTrue(MoveToER);
         btn8.whileTrue(MoveToFR);
         btn10.whileTrue(MoveToCR);
         btn11.whileTrue(MoveToAR);
-
+  
         driverXbox.a().whileTrue(DriveSlow);
         driverXbox.y().whileTrue(fast);
-        driverXbox.b().whileTrue(MovetoStationREDRIGHT);
-        driverXbox.x().whileTrue(MovetoStationREDLEFT);
+        driverXbox.b().whileTrue(MovetoStationBLUERIGHT);
+        driverXbox.x().whileTrue(MovetoStationBLUELEFT);
         driverXbox.rightStick().whileTrue(mOuttakeCMDG);
+        driverXbox.leftStick().whileTrue(mStopTheArm_CMD);
 
 
 
@@ -638,20 +641,20 @@ SwerveInputStream PoteauAR = driveAngularVelocity.copy().of( drivebase.getSwerve
       S7   |       | 1
          4  \__ __/  10
              11  2 
-*/
-/*        Sbtn1.whileTrue(MoveToG);
+*//*
+        Sbtn1.whileTrue(MoveToG);
         Sbtn2.whileTrue(MoveToH);
         Sbtn3.whileTrue(MoveToI);
-        Sbtn6.whileTrue(MoveToE);
+        Sbtn6.whileTrue(MoveToJ);
         Sbtn7.whileTrue(MoveToK);
         btn1.whileTrue(MoveToD);
         btn2.whileTrue(MoveToB);
         btn4.whileTrue(MoveToL);
-        btn6.whileTrue(MoveToJ);
+        btn6.whileTrue(MoveToE);
         btn8.whileTrue(MoveToF);
         btn10.whileTrue(MoveToC);
         btn11.whileTrue(MoveToA);
-     */
+       */
 
   
     //  } 

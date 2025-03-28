@@ -51,7 +51,7 @@ public class scoreWrist extends Command {
       mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionL4) {
-      addedAngle = -75;
+      addedAngle = -80;
      mArm_SS.setWristPosition(mArm_SS.GetPositionTypeWrist() + addedAngle);
     }
     if(mCurrent == PositionsDictionnary.mPositionCoralStation) {

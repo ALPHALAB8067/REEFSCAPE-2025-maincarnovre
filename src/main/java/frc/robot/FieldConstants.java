@@ -56,8 +56,8 @@ public final class FieldConstants
       public static Pose2d PoteauL = new Pose2d(3.706,5.060,Rotation2d.fromDegrees(-60));
    }
    public final class StationRed {
-      public static Pose2d Redleft = new Pose2d(16.339, 1.070, Rotation2d.fromDegrees(-54.293));
-      public static Pose2d Redright = new Pose2d(16.195, 7.040, Rotation2d.fromDegrees(51.680));
+      public static Pose2d Redleft = new Pose2d(16.375, 1.034, Rotation2d.fromDegrees(-54.281));
+      public static Pose2d Redright = new Pose2d(16.159, 7.160, Rotation2d.fromDegrees(51.680));
    }
 
    public final class StationBlue {
